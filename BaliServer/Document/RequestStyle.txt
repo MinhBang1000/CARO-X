@@ -1,0 +1,4 @@
+﻿Các chuổi dùng để gửi tin
+login/username/password - login/true or false
+online/amnout(Số người online)/username1/username2/username3/username4/.../usernamen$
+play/username1/username2 - play/true or false/username1/username2
