@@ -27,6 +27,7 @@ namespace CARO_X
         public TwoPlayerView()
         {
             InitializeComponent();
+            this.CenterToScreen();
             InitComponents();
             InitChessBoard();
         }

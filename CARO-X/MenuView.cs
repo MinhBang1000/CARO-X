@@ -23,6 +23,7 @@ namespace CARO_X
             proBar.Visible = false;
             two = new TwoPlayerView();
             two.menu = this;
+            this.CenterToScreen();
         }
 
         // FUNCTION MY DEFINE

@@ -140,26 +140,15 @@ namespace CARO_X
             this.lbPlayer.Text = this.playerName;
         }
 
+        public void SetCenterForm()
+        {
+            this.CenterToScreen();
+        }
         /// <summary>
         /// Khóa bàn cờ theo ý muốn -3 khóa lại, -1 mở ra trừ các ô đã đánh
         /// </summary>
         /// <param name="x"></param>
-        public void BlockBoardMultiplayer(int x)
-        {
-            int n = Config.CHESS_X;
-            int m = Config.CHESS_Y;
-            int i, j;
-            for (i = 0; i < n; i++)
-            {
-                for (j = 0; j < m; j++)
-                {
-                    if (tick[i,j] != 0 || tick[i, j] != 1) // Là tìm ô chưa đánh
-                    {
-                        tick[i, j] = x; // Khóa lại khi hết lượt
-                    }
-                }
-            }
-        }
+        
 
         /// <summary>
         /// Để set turn khi đánh online
@@ -191,8 +180,7 @@ namespace CARO_X
             int x = Convert.ToInt32(str1.Substring(0, index));
             int y = Convert.ToInt32(str1.Substring(index + 1));
             if (tick[x, y] == -1)
-            {
-                //this.BlockBoardMultiplayer(-3);
+            { 
                 // Là O
                 this.tick[x, y] = 0;
                 if (this.turn == false)
@@ -288,6 +276,22 @@ namespace CARO_X
         {
             this.lstOnl.Items.Add(item);
         }
+
+        public void CheckTickArray()
+        {
+            int x = Config.CHESS_X;
+            int y = Config.CHESS_Y;
+            string str = "";
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    str += " " + tick[i, j];
+                }
+                str += "\n";
+            }
+            MessageBox.Show(str);
+        }
         /// <summary>
         /// Đánh cờ lên bàn cờ từ Server gửi về
         /// </summary>
@@ -301,6 +305,7 @@ namespace CARO_X
             {
                 if (tick[x, y] == -1)
                 {
+                    
                     // Là O
                     this.tick[x, y] = 0;
                     if (this.turn == false)

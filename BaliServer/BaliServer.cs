@@ -38,6 +38,7 @@ namespace BaliServer
             CheckForIllegalCrossThreadCalls = false;
             clientList = new Dictionary<string, Socket>();
             userController = new UserController();
+            this.CenterToScreen();
         }
 
         //FUNCTION DEFINE
@@ -73,6 +74,15 @@ namespace BaliServer
                                 {
                                     Console.WriteLine("Error -Connect- "+ex.Message);
                                     // Khi client tắt
+                                    // Xóa ra khỏi ClientList
+                                    foreach (var item in clientList)
+                                    {
+                                        if (item.Value == client)
+                                        {
+                                            clientList.Remove(item.Key);
+                                            break;
+                                        }
+                                    }
                                     client.Close();
                                     break;
                                 }
@@ -296,6 +306,7 @@ namespace BaliServer
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Server is running!");
             this.Connect();
         }
 

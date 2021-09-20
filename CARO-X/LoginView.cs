@@ -30,6 +30,7 @@ namespace CARO_X
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            this.CenterToScreen();
             this.Connect();
         }
         // DEFINE
@@ -97,9 +98,10 @@ namespace CARO_X
                             this.multiplayerView.login = this;
                             this.multiplayerView.playerSocket = loginSocket;
                             this.multiplayerView.playerName = txtUsername.Text;
-                            this.multiplayerView.BlockBoardMultiplayer(-3);
+                            
                             this.multiplayerView.SetNamePlayer();
                             this.Invoke((MethodInvoker)delegate {
+                                this.multiplayerView.SetCenterForm();
                                 this.multiplayerView.Show();
                                 this.Hide();
                             });
@@ -121,7 +123,7 @@ namespace CARO_X
                         {
                             msg1 = "canplay/true/" + content;
                             // Unlock bàn cờ
-                            this.multiplayerView.BlockBoardMultiplayer(-1);
+                            
                             // Set turn
                             this.multiplayerView.SetTurn(true);
                             // Khóa các nút lại --> Mời bạn
@@ -156,7 +158,7 @@ namespace CARO_X
                         {
                             MessageBox.Show(userBeCh + " said: OK. Both can play together right now! Have fun!");
                             // Unlock bàn cờ
-                            this.multiplayerView.BlockBoardMultiplayer(-1);
+                            
                             // Set turn
                             this.multiplayerView.SetTurn(true);
                             // Khóa các nút lại --> Mời bạn
@@ -201,7 +203,7 @@ namespace CARO_X
                         int y = Convert.ToInt32(content.Substring(0, content.IndexOf("/")));
                         content = content.Substring(content.IndexOf("/") + 1);
                         int win = Convert.ToInt32(content.Substring(0));
-                        //this.multiplayerView.BlockBoardMultiplayer(-1);
+                        
                         this.Invoke((MethodInvoker)delegate {
                             this.multiplayerView.ChessTick(x,y,win);
                         });
@@ -259,6 +261,7 @@ namespace CARO_X
                         int[] tempX = X.ToArray();
                         int[] tempY = Y.ToArray();
                         this.multiplayerView.DrawRowWin(tempX,tempY);
+                        
                         break;
                     }
             }
