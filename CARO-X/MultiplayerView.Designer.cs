@@ -37,12 +37,11 @@ namespace CARO_X
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lbPlayerWin = new System.Windows.Forms.Label();
+            this.lbPlayerScore = new System.Windows.Forms.Label();
+            this.lbPlayer = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnMenu = new System.Windows.Forms.Label();
-            this.btnSetting = new System.Windows.Forms.Label();
-            this.btnNewGame = new System.Windows.Forms.Label();
-            this.btnOut = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnReload = new System.Windows.Forms.PictureBox();
@@ -50,9 +49,10 @@ namespace CARO_X
             this.btnChallenge = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.lstOnl = new System.Windows.Forms.ListBox();
-            this.lbPlayer = new System.Windows.Forms.Label();
-            this.lbPlayerScore = new System.Windows.Forms.Label();
-            this.lbPlayerWin = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -138,6 +138,39 @@ namespace CARO_X
             this.label1.TabIndex = 1;
             this.label1.Text = "Scores:";
             // 
+            // lbPlayerWin
+            // 
+            this.lbPlayerWin.AutoSize = true;
+            this.lbPlayerWin.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPlayerWin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.lbPlayerWin.Location = new System.Drawing.Point(111, 86);
+            this.lbPlayerWin.Name = "lbPlayerWin";
+            this.lbPlayerWin.Size = new System.Drawing.Size(44, 24);
+            this.lbPlayerWin.TabIndex = 1;
+            this.lbPlayerWin.Text = "Text";
+            // 
+            // lbPlayerScore
+            // 
+            this.lbPlayerScore.AutoSize = true;
+            this.lbPlayerScore.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPlayerScore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.lbPlayerScore.Location = new System.Drawing.Point(111, 45);
+            this.lbPlayerScore.Name = "lbPlayerScore";
+            this.lbPlayerScore.Size = new System.Drawing.Size(44, 24);
+            this.lbPlayerScore.TabIndex = 1;
+            this.lbPlayerScore.Text = "Text";
+            // 
+            // lbPlayer
+            // 
+            this.lbPlayer.AutoSize = true;
+            this.lbPlayer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPlayer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.lbPlayer.Location = new System.Drawing.Point(111, 9);
+            this.lbPlayer.Name = "lbPlayer";
+            this.lbPlayer.Size = new System.Drawing.Size(44, 24);
+            this.lbPlayer.TabIndex = 1;
+            this.lbPlayer.Text = "Text";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -151,71 +184,14 @@ namespace CARO_X
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.btnMenu);
-            this.panel3.Controls.Add(this.btnSetting);
-            this.panel3.Controls.Add(this.btnNewGame);
-            this.panel3.Controls.Add(this.btnOut);
+            this.panel3.Controls.Add(this.button4);
+            this.panel3.Controls.Add(this.button3);
+            this.panel3.Controls.Add(this.button2);
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Location = new System.Drawing.Point(876, 555);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(241, 209);
             this.panel3.TabIndex = 11;
-            // 
-            // btnMenu
-            // 
-            this.btnMenu.AutoSize = true;
-            this.btnMenu.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMenu.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
-            this.btnMenu.Location = new System.Drawing.Point(72, 128);
-            this.btnMenu.Name = "btnMenu";
-            this.btnMenu.Size = new System.Drawing.Size(90, 37);
-            this.btnMenu.TabIndex = 2;
-            this.btnMenu.Text = "Menu";
-            this.btnMenu.MouseEnter += new System.EventHandler(this.btnMenu_MouseEnter);
-            this.btnMenu.MouseLeave += new System.EventHandler(this.btnMenu_MouseLeave);
-            // 
-            // btnSetting
-            // 
-            this.btnSetting.AutoSize = true;
-            this.btnSetting.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSetting.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
-            this.btnSetting.Location = new System.Drawing.Point(66, 85);
-            this.btnSetting.Name = "btnSetting";
-            this.btnSetting.Size = new System.Drawing.Size(103, 37);
-            this.btnSetting.TabIndex = 1;
-            this.btnSetting.Text = "Setting";
-            this.btnSetting.MouseEnter += new System.EventHandler(this.btnSetting_MouseEnter);
-            this.btnSetting.MouseLeave += new System.EventHandler(this.btnSetting_MouseLeave);
-            // 
-            // btnNewGame
-            // 
-            this.btnNewGame.AccessibleName = "";
-            this.btnNewGame.AutoSize = true;
-            this.btnNewGame.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNewGame.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNewGame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
-            this.btnNewGame.Location = new System.Drawing.Point(66, 4);
-            this.btnNewGame.Name = "btnNewGame";
-            this.btnNewGame.Size = new System.Drawing.Size(100, 37);
-            this.btnNewGame.TabIndex = 3;
-            this.btnNewGame.Text = "Replay";
-            this.btnNewGame.MouseEnter += new System.EventHandler(this.btnNewGame_MouseEnter);
-            this.btnNewGame.MouseLeave += new System.EventHandler(this.btnNewGame_MouseLeave);
-            // 
-            // btnOut
-            // 
-            this.btnOut.AutoSize = true;
-            this.btnOut.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnOut.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOut.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
-            this.btnOut.Location = new System.Drawing.Point(45, 45);
-            this.btnOut.Name = "btnOut";
-            this.btnOut.Size = new System.Drawing.Size(144, 37);
-            this.btnOut.TabIndex = 2;
-            this.btnOut.Text = "Out Battle";
-            this.btnOut.MouseEnter += new System.EventHandler(this.btnOut_MouseEnter);
-            this.btnOut.MouseLeave += new System.EventHandler(this.btnOut_MouseLeave);
             // 
             // panel4
             // 
@@ -296,38 +272,57 @@ namespace CARO_X
             this.lstOnl.Size = new System.Drawing.Size(200, 68);
             this.lstOnl.TabIndex = 0;
             // 
-            // lbPlayer
+            // button1
             // 
-            this.lbPlayer.AutoSize = true;
-            this.lbPlayer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPlayer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.lbPlayer.Location = new System.Drawing.Point(111, 9);
-            this.lbPlayer.Name = "lbPlayer";
-            this.lbPlayer.Size = new System.Drawing.Size(44, 24);
-            this.lbPlayer.TabIndex = 1;
-            this.lbPlayer.Text = "Text";
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(18, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(200, 39);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "New Game";
+            this.button1.UseVisualStyleBackColor = false;
             // 
-            // lbPlayerScore
+            // button2
             // 
-            this.lbPlayerScore.AutoSize = true;
-            this.lbPlayerScore.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPlayerScore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.lbPlayerScore.Location = new System.Drawing.Point(111, 45);
-            this.lbPlayerScore.Name = "lbPlayerScore";
-            this.lbPlayerScore.Size = new System.Drawing.Size(44, 24);
-            this.lbPlayerScore.TabIndex = 1;
-            this.lbPlayerScore.Text = "Text";
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(18, 64);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(200, 39);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Leave Room";
+            this.button2.UseVisualStyleBackColor = false;
             // 
-            // lbPlayerWin
+            // button3
             // 
-            this.lbPlayerWin.AutoSize = true;
-            this.lbPlayerWin.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPlayerWin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.lbPlayerWin.Location = new System.Drawing.Point(111, 86);
-            this.lbPlayerWin.Name = "lbPlayerWin";
-            this.lbPlayerWin.Size = new System.Drawing.Size(44, 24);
-            this.lbPlayerWin.TabIndex = 1;
-            this.lbPlayerWin.Text = "Text";
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(18, 112);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(200, 39);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "Setting";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(18, 160);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(200, 39);
+            this.button4.TabIndex = 0;
+            this.button4.Text = "Back To Menu";
+            this.button4.UseVisualStyleBackColor = false;
             // 
             // MultiplayerView
             // 
@@ -347,7 +342,6 @@ namespace CARO_X
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -366,14 +360,10 @@ namespace CARO_X
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label btnSetting;
-        private System.Windows.Forms.Label btnNewGame;
-        private System.Windows.Forms.Label btnMenu;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label btnOut;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox lstOnl;
         private System.Windows.Forms.Label label3;
@@ -383,5 +373,9 @@ namespace CARO_X
         private System.Windows.Forms.Label lbPlayerWin;
         private System.Windows.Forms.Label lbPlayerScore;
         private System.Windows.Forms.Label lbPlayer;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

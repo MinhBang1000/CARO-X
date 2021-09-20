@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -40,6 +41,10 @@ namespace BaliServer
             userController = new UserController();
             this.CenterToScreen();
         }
+
+        private PerformanceCounter CPU;
+        private PerformanceCounter RAM;
+
 
         //FUNCTION DEFINE
         public void Connect()
@@ -102,6 +107,7 @@ namespace BaliServer
             listen.IsBackground = true;
             listen.Start();
         }
+
         public void CloseConnection()
         {
             serverSocket.Close();
@@ -294,37 +300,28 @@ namespace BaliServer
             Application.Exit();
         }
 
-        private void btnConnect_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnConnect.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnConnect_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnConnect.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnConnect_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Server is running!");
+            CPU = new PerformanceCounter("Processor Information", "% Processor Time", "_Total");
+            RAM = new PerformanceCounter("Memory", "Available MBytes");
+            timerPerformance.Start();
             this.Connect();
-        }
-
-        private void btnStop_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnStop.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnStop_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnStop.ForeColor = Color.FromArgb(54, 124, 138);
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
             this.CloseConnection();
+            timerPerformance.Stop();
         }
 
-        
+        private void timerPerformance_Tick(object sender, EventArgs e)
+        {
+            lbCPU.Text = "CPU: " + Convert.ToInt32(CPU.NextValue()) +" % ";
+            lbRAM.Text = "RAM: "+ Convert.ToInt32(RAM.NextValue()) + " MB";
+            progressBar1.PerformLayout();
+            progressBar2.PerformLayout();
+
+        }
     }
 }

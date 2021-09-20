@@ -31,6 +31,7 @@ namespace CARO_X
         private Button[,] btn;
         // Lượt đánh và ô đã đánh
         private int[,] tick;
+        private bool[,] block;
         private bool turn;
         private bool result = false; // chưa có kết quả trận đấu
 
@@ -53,6 +54,7 @@ namespace CARO_X
         {
             btn = new Button[Config.CHESS_X, Config.CHESS_Y];
             tick = new int[Config.CHESS_X, Config.CHESS_Y];
+            block = new bool[Config.CHESS_X, Config.CHESS_Y];
             // O đánh trước
             turn = true;
             this.battle = new BattleController();
@@ -95,6 +97,7 @@ namespace CARO_X
                     x += Config.CHESS_WIDTH;
                     btn[i, j] = chessBtn;
                     tick[i, j] = -1; // là chưa có đánh gì hết
+                    block[i, j] = true; // là cho đánh nhưng mở đầu sẽ bị hàm kia block lại
                 }
                 x = 0;
                 y += Config.CHESS_HEIGHT;
@@ -144,11 +147,22 @@ namespace CARO_X
         {
             this.CenterToScreen();
         }
-        /// <summary>
-        /// Khóa bàn cờ theo ý muốn -3 khóa lại, -1 mở ra trừ các ô đã đánh
-        /// </summary>
-        /// <param name="x"></param>
-        
+
+        public void BlockAfterChess(bool check)
+        {
+            int x = Config.CHESS_X;
+            int y = Config.CHESS_Y;
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (tick[i, j] == -1)
+                    {
+                        block[i, j] = check;
+                    }
+                }
+            }
+        }        
 
         /// <summary>
         /// Để set turn khi đánh online
@@ -158,16 +172,22 @@ namespace CARO_X
         {
             this.turn = turn;
         }
+
         /// <summary>
         /// Khóa và mở các nút khi chơi
         /// </summary>
         /// <param name="tmp"></param>
         public void BlockButton(bool tmp)
         {
-            this.btnChallenge.Enabled = tmp;
+            
         }
 
         // Sự kiện nhất quán trên với 1
+        /// <summary>
+        /// Sự kiện các nút trên bàn cờ
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         public void ChessClick(Object Sender, EventArgs e)
         {
             // Bắt lấy cái nút nhấn
@@ -179,8 +199,11 @@ namespace CARO_X
             index = str1.IndexOf("_");
             int x = Convert.ToInt32(str1.Substring(0, index));
             int y = Convert.ToInt32(str1.Substring(index + 1));
-            if (tick[x, y] == -1)
-            { 
+            if (tick[x, y] == -1 && block[x,y]==true)
+            {
+                // Ô nào đánh rồi thì không cho đánh nữa
+                this.block[x, y] = false;
+                this.BlockAfterChess(false);
                 // Là O
                 this.tick[x, y] = 0;
                 if (this.turn == false)
@@ -255,12 +278,13 @@ namespace CARO_X
             }
 
         }
-        // Sự kiện Hover các Chess Button
+        
         public void ChessEnter(Object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
             btn.FlatAppearance.BorderColor = Color.FromArgb(8, 200, 204);
         }
+        
         public void ChessLeave(Object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
@@ -292,15 +316,11 @@ namespace CARO_X
             }
             MessageBox.Show(str);
         }
-        /// <summary>
-        /// Đánh cờ lên bàn cờ từ Server gửi về
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="win"></param>
+        
         public void ChessTick(int x, int y, int winner)
         {
             Button btn = this.btn[x,y];
+            this.block[x, y] = false;
             if (winner == 2)
             {
                 if (tick[x, y] == -1)
@@ -364,19 +384,6 @@ namespace CARO_X
             }
         }
 
-        public void SendChess(string msg)
-        {
-            byte[] data = StaticController.Encoding(msg);
-            try
-            {
-                playerSocket.Send(data);
-            }
-            catch
-            {
-                MessageBox.Show("Can't send your tick -MultiplayerView-");
-            }
-        }
-
         // DRAG FORM
         [DllImport("user32")]
         private static extern bool ReleaseCapture();
@@ -392,36 +399,6 @@ namespace CARO_X
                 ReleaseCapture();
                 SendMessage(Handle, 161, 2, 0);
             }
-        }
-
-        private void btnNewGame_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnNewGame.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnNewGame_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnNewGame.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnMenu_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnMenu.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnMenu_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnMenu.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnSetting_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnSetting.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnSetting_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnSetting.ForeColor = Color.FromArgb(54, 124, 138);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -445,21 +422,6 @@ namespace CARO_X
             }
         }
 
-        private void btnOut_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnOut.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnOut_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnOut.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        /// <summary>
-        /// Thách đấu với đối thủ nào đó
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnChallenge_Click(object sender, EventArgs e)
         {
             string friend = this.lstOnl.SelectedItem.ToString();
@@ -474,5 +436,6 @@ namespace CARO_X
                 Console.WriteLine("Error -btnChallenge- "+ex.ToString());
             }
         }
+
     }
 }

@@ -102,6 +102,7 @@ namespace CARO_X
                             this.multiplayerView.SetNamePlayer();
                             this.Invoke((MethodInvoker)delegate {
                                 this.multiplayerView.SetCenterForm();
+                                this.multiplayerView.BlockAfterChess(false);
                                 this.multiplayerView.Show();
                                 this.Hide();
                             });
@@ -123,7 +124,7 @@ namespace CARO_X
                         {
                             msg1 = "canplay/true/" + content;
                             // Unlock bàn cờ
-                            
+                            //this.multiplayerView.BlockAfterChess(false);
                             // Set turn
                             this.multiplayerView.SetTurn(true);
                             // Khóa các nút lại --> Mời bạn
@@ -158,7 +159,7 @@ namespace CARO_X
                         {
                             MessageBox.Show(userBeCh + " said: OK. Both can play together right now! Have fun!");
                             // Unlock bàn cờ
-                            
+                            this.multiplayerView.BlockAfterChess(true);
                             // Set turn
                             this.multiplayerView.SetTurn(true);
                             // Khóa các nút lại --> Mời bạn
@@ -205,6 +206,7 @@ namespace CARO_X
                         int win = Convert.ToInt32(content.Substring(0));
                         
                         this.Invoke((MethodInvoker)delegate {
+                            this.multiplayerView.BlockAfterChess(true);
                             this.multiplayerView.ChessTick(x,y,win);
                         });
                         break;
