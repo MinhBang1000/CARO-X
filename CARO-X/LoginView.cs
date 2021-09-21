@@ -33,8 +33,8 @@ namespace CARO_X
             this.CenterToScreen();
             this.Connect();
         }
+        
         // DEFINE
-
         public void Connect()
         {
             loginIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"),Config.PORT);
@@ -80,10 +80,6 @@ namespace CARO_X
             Console.WriteLine("Connection Be Closed or Can't Connect");
         }
 
-        /// <summary>
-        /// Hàm xử lý các respond từ server cho các View khác luôn 
-        /// </summary>
-        /// <param name="msg"></param>
         public void ProccessRespond(string msg)
         {
             string signal = msg.Substring(0, msg.IndexOf("/"));
@@ -98,7 +94,7 @@ namespace CARO_X
                             this.multiplayerView.login = this;
                             this.multiplayerView.playerSocket = loginSocket;
                             this.multiplayerView.playerName = txtUsername.Text;
-                            
+                            this.multiplayerView.playing = false; // chưa chơi với ai
                             this.multiplayerView.SetNamePlayer();
                             this.Invoke((MethodInvoker)delegate {
                                 this.multiplayerView.SetCenterForm();
@@ -131,6 +127,8 @@ namespace CARO_X
                             this.multiplayerView.playerBeCh = userCh;
                             // Nó sẽ đánh sau
                             this.multiplayerView.firstTurn = 1; // X
+                            // Đang chơi 
+                            this.multiplayerView.playing = true;
                         }
                         else if (dialogResult == DialogResult.No)
                         {
@@ -168,6 +166,8 @@ namespace CARO_X
                             this.multiplayerView.playerBeCh = userBeCh;
                             // Nhớ là ván này thằng này đánh trước
                             this.multiplayerView.firstTurn = 0; //O
+                            // Đang chơi 
+                            this.multiplayerView.playing = true;
                         }
                         else
                         {
@@ -344,7 +344,12 @@ namespace CARO_X
                     }
                 case "leave":
                     {
-                        MessageBox.Show("Your friend is leaved. 'See you next time' "+this.multiplayerView.playerBeCh +" said.");
+                        if (this.multiplayerView.playing)
+                        {
+                            MessageBox.Show("Your friend is leaved. 'See you next time' " + this.multiplayerView.playerBeCh + " said.");
+                        }
+                        // nghĩ chơi 
+                        this.multiplayerView.playing = false;
                         this.multiplayerView.ResetGame();
                         this.multiplayerView.BlockAllChess(false);
                         this.multiplayerView.BlockButton(true);

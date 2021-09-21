@@ -11,12 +11,12 @@ namespace CARO_X.Controllers
     class UserController
     {
         private User user;
-        private Personal personal;
+        
 
         public UserController()
         {
             user = new User();
-            personal = new Personal();
+            
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace CARO_X.Controllers
             user.username = username;
             user.password = password;
             int check = user.Select(); //user_id here
-            personal.user_id = check;
+            
             //DbDataReader reader = personal.Select();
             //if (reader.HasRows)
             //{

@@ -15,19 +15,14 @@ namespace CARO_X
 {
     public partial class MultiplayerView : Form
     {
-        /// <summary>
-        /// Quản lý kết nối Socket
-        /// </summary>
         public Socket playerSocket;
         public LoginView login;
         public FriendView friendView;
         public string playerName;
         public string playerBeCh;
         public int firstTurn;
+        public bool playing = false;
 
-        /// <summary>
-        /// Quản lý tác vụ đánh cờ
-        /// </summary>
         public MenuView menu;
         private Button[,] btn;
         // Lượt đánh và ô đã đánh
@@ -36,9 +31,6 @@ namespace CARO_X
         private bool turn;
         private bool result = false; // chưa có kết quả trận đấu
 
-        /// <summary>
-        /// Lớp xử lý trận đấu
-        /// </summary>
         public BattleController battle;
 
         public MultiplayerView()
@@ -50,7 +42,6 @@ namespace CARO_X
         }
 
         // FUNCTION MY DEFINE
-        // Khởi tạo bàn cở và đánh cờ
         public void InitComponents()
         {
             btn = new Button[Config.CHESS_X, Config.CHESS_Y];
@@ -227,31 +218,17 @@ namespace CARO_X
             MessageBox.Show(str1);
         }
 
-        /// <summary>
-        /// Để set turn khi đánh online
-        /// </summary>
-        /// <param name="turn"></param>
         public void SetTurn(bool turn)
         {
             this.turn = turn;
         }
 
-        /// <summary>
-        /// Khóa và mở các nút khi chơi
-        /// </summary>
-        /// <param name="tmp"></param>
         public void BlockButton(bool tmp)
         {
             Button btn = btnChallenge;
             btn.Enabled = tmp;
         }
 
-        // Sự kiện nhất quán trên với 1
-        /// <summary>
-        /// Sự kiện các nút trên bàn cờ
-        /// </summary>
-        /// <param name="Sender"></param>
-        /// <param name="e"></param>
         public void ChessClick(Object Sender, EventArgs e)
         {
             // Bắt lấy cái nút nhấn
@@ -356,10 +333,6 @@ namespace CARO_X
         }
 
         // SERVER ACTION
-        /// <summary>
-        /// Hàm đánh cờ lên bàn cờ từ phía Server truyền qua
-        /// </summary>
-        /// win = {0,1,2} => 0 la O thắng , 1 là X thắng, 2 là hòa cờ
         public void AddItemOnline(string item)
         {
             this.lstOnl.Items.Add(item);
@@ -520,6 +493,7 @@ namespace CARO_X
             DialogResult dialogResult = MessageBox.Show("Do you want to quit this battle ?", "CARO-X MESSAGE", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
+                this.playing = false;
                 this.BlockAllChess(false);
                 this.ResetGame();
                 this.BlockButton(true);
@@ -535,7 +509,7 @@ namespace CARO_X
             }
             else if (dialogResult == DialogResult.No)
             {
-                // Do nothing
+                //....
             }
         }
 

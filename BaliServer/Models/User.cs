@@ -15,6 +15,12 @@ namespace CARO_X.Models
         private DataBase dataBase;
         public string username;
         public string password;
+        public string fullname;
+        public string avatar;
+        public int gender;
+        public int total_score;
+        public int total_battle;
+        public int total_win;
 
         public User()
         {

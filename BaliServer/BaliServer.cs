@@ -22,14 +22,8 @@ namespace BaliServer
 {
     public partial class BaliServer : Form
     {
-        /// <summary>
-        /// Dùng để truy xuất CSDL
-        /// </summary>
         private UserController userController;
         
-        /// <summary>
-        /// Dùng để kết nối Socket
-        /// </summary>
         private Socket serverSocket;
         private Dictionary<string, Socket> clientList;
         private IPEndPoint ip;
@@ -44,7 +38,6 @@ namespace BaliServer
 
         private PerformanceCounter CPU;
         private PerformanceCounter RAM;
-
 
         //FUNCTION DEFINE
         public void Connect()
@@ -114,10 +107,6 @@ namespace BaliServer
             MessageBox.Show("Connection is Closed");
         }
 
-        /// <summary>
-        /// Hàm xử lý tất cả các loại Request
-        /// </summary>
-        /// <param name="msg"></param>
         public void ProcessRequest(string msg, Socket client)
         {
             string signal = msg.Substring(0,msg.IndexOf("/"));
@@ -150,32 +139,38 @@ namespace BaliServer
                 case "online": // Yêu cầu gửi danh sách người dùng đang online
                     {
                         string msg1 = "online/" + clientList.Count+"/";
+                        int n = 0;
                         foreach (var kvp in clientList)
                         {
                             string username = kvp.Key;
                             if (client != kvp.Value)
                             {
                                 msg1 += username + "/";
+                                n++;
                             }
                         }
-                        msg1 = msg1.Substring(0, msg1.LastIndexOf("/"));
-                        byte[] data = StaticController.Encoding(msg1);
-                        try
+                        if (n != 0)
                         {
+                            msg1 = msg1.Substring(0, msg1.LastIndexOf("/"));
+                            byte[] data = StaticController.Encoding(msg1);
                             try
                             {
-                                client.Send(data);
+                                try
+                                {
+                                    client.Send(data);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("Exception " + ex.ToString());
+                                }
                             }
-                            catch(Exception ex)
+                            catch
                             {
-                                Console.WriteLine("Exception "+ ex.ToString());
+                                Console.WriteLine("Can't send to all Client -BaliServer-");
                             }
+                            Console.WriteLine("Send List All User online Successful -BaliServer-");
                         }
-                        catch
-                        {
-                            Console.WriteLine("Can't send to all Client -BaliServer-");
-                        }
-                        Console.WriteLine("Send List All User online Successful -BaliServer-");
+                        Console.WriteLine("Not found any users -BaliServer-");
                         break;
                     }
                 case "play":
