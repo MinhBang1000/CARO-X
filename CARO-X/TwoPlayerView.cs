@@ -330,47 +330,6 @@ namespace CARO_X
             Application.Exit();
         }
 
-        private void btnMenu_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            menu.Show();
-        }
-
-        private void btnNewGame_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnNewGame.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnNewGame_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnNewGame.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnMenu_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnMenu.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnMenu_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnMenu.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnSetting_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnSetting.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnSetting_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnSetting.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnNewGame_Click(object sender, EventArgs e)
-        {
-            this.ResetGame();
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.PlayerTime(lbTime1);
@@ -381,10 +340,15 @@ namespace CARO_X
             this.PlayerTime(lbTime2);
         }
 
-        private void btnSetting_Click(object sender, EventArgs e)
+        private void btnNewGame_Click(object sender, EventArgs e)
         {
-            
+            this.ResetGame();
         }
 
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.menu.Show();
+        }
     }
 }

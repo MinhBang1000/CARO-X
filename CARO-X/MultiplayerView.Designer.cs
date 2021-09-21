@@ -42,6 +42,10 @@ namespace CARO_X
             this.lbPlayer = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnMenu = new System.Windows.Forms.Button();
+            this.btnSetting = new System.Windows.Forms.Button();
+            this.btnLeaveRoom = new System.Windows.Forms.Button();
+            this.btnNewGame = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnReload = new System.Windows.Forms.PictureBox();
@@ -49,10 +53,6 @@ namespace CARO_X
             this.btnChallenge = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.lstOnl = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -66,7 +66,7 @@ namespace CARO_X
             // 
             this.pnBoard.Location = new System.Drawing.Point(12, 53);
             this.pnBoard.Name = "pnBoard";
-            this.pnBoard.Size = new System.Drawing.Size(854, 711);
+            this.pnBoard.Size = new System.Drawing.Size(856, 711);
             this.pnBoard.TabIndex = 1;
             // 
             // label4
@@ -184,14 +184,69 @@ namespace CARO_X
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.button4);
-            this.panel3.Controls.Add(this.button3);
-            this.panel3.Controls.Add(this.button2);
-            this.panel3.Controls.Add(this.button1);
+            this.panel3.Controls.Add(this.btnMenu);
+            this.panel3.Controls.Add(this.btnSetting);
+            this.panel3.Controls.Add(this.btnLeaveRoom);
+            this.panel3.Controls.Add(this.btnNewGame);
             this.panel3.Location = new System.Drawing.Point(876, 555);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(241, 209);
             this.panel3.TabIndex = 11;
+            // 
+            // btnMenu
+            // 
+            this.btnMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnMenu.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMenu.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMenu.Location = new System.Drawing.Point(20, 159);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(200, 39);
+            this.btnMenu.TabIndex = 0;
+            this.btnMenu.Text = "Back To Menu";
+            this.btnMenu.UseVisualStyleBackColor = false;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            // 
+            // btnSetting
+            // 
+            this.btnSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnSetting.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetting.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSetting.Location = new System.Drawing.Point(20, 111);
+            this.btnSetting.Name = "btnSetting";
+            this.btnSetting.Size = new System.Drawing.Size(200, 39);
+            this.btnSetting.TabIndex = 0;
+            this.btnSetting.Text = "Setting";
+            this.btnSetting.UseVisualStyleBackColor = false;
+            // 
+            // btnLeaveRoom
+            // 
+            this.btnLeaveRoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnLeaveRoom.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLeaveRoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLeaveRoom.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLeaveRoom.Location = new System.Drawing.Point(20, 63);
+            this.btnLeaveRoom.Name = "btnLeaveRoom";
+            this.btnLeaveRoom.Size = new System.Drawing.Size(200, 39);
+            this.btnLeaveRoom.TabIndex = 0;
+            this.btnLeaveRoom.Text = "Leave Room";
+            this.btnLeaveRoom.UseVisualStyleBackColor = false;
+            this.btnLeaveRoom.Click += new System.EventHandler(this.btnLeaveRoom_Click);
+            // 
+            // btnNewGame
+            // 
+            this.btnNewGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnNewGame.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNewGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewGame.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewGame.Location = new System.Drawing.Point(20, 15);
+            this.btnNewGame.Name = "btnNewGame";
+            this.btnNewGame.Size = new System.Drawing.Size(200, 39);
+            this.btnNewGame.TabIndex = 0;
+            this.btnNewGame.Text = "New Game";
+            this.btnNewGame.UseVisualStyleBackColor = false;
+            this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click);
             // 
             // panel4
             // 
@@ -272,58 +327,6 @@ namespace CARO_X
             this.lstOnl.Size = new System.Drawing.Size(200, 68);
             this.lstOnl.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(18, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(200, 39);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "New Game";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(18, 64);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(200, 39);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Leave Room";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(18, 112);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(200, 39);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Setting";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(18, 160);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(200, 39);
-            this.button4.TabIndex = 0;
-            this.button4.Text = "Back To Menu";
-            this.button4.UseVisualStyleBackColor = false;
-            // 
             // MultiplayerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -373,9 +376,9 @@ namespace CARO_X
         private System.Windows.Forms.Label lbPlayerWin;
         private System.Windows.Forms.Label lbPlayerScore;
         private System.Windows.Forms.Label lbPlayer;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnMenu;
+        private System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.Button btnLeaveRoom;
+        private System.Windows.Forms.Button btnNewGame;
     }
 }

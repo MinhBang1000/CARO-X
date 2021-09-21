@@ -23,6 +23,7 @@ namespace CARO_X
         public FriendView friendView;
         public string playerName;
         public string playerBeCh;
+        public int firstTurn;
 
         /// <summary>
         /// Quản lý tác vụ đánh cờ
@@ -162,7 +163,69 @@ namespace CARO_X
                     }
                 }
             }
-        }        
+        }
+
+        public void ResetGame()
+        {
+            int n = Config.CHESS_X;
+            int m = Config.CHESS_Y;
+            int i, j;
+            int x = 0;
+            int y = 0;
+            Button standardButton = new Button();
+            this.turn = true;
+            for (i = 0; i < n; i++)
+            {
+                for (j = 0; j < m; j++)
+                {
+                    btn[i, j].BackgroundImage = standardButton.BackgroundImage;
+                    btn[i, j].BackColor = Color.FromArgb(8, 17, 24);
+                    tick[i, j] = -1;
+                }
+            }
+            result = false;
+            battle.ResetRowWin();
+        }
+        
+        public void BlockAllChess(bool check)
+        {
+            int x = Config.CHESS_X;
+            int y = Config.CHESS_Y;
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    
+                        block[i, j] = check;
+                    
+                }
+            }
+        }
+        
+        public void Check()
+        {
+            int x = Config.CHESS_X;
+            int y = Config.CHESS_Y;
+            string str1 = "";
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    str1 += tick[i, j] + " ";
+                }
+                str1 += "\n";
+            }
+            str1 += "\n";
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    str1 += block[i, j] + " ";
+                }
+                str1 += "\n";
+            }
+            MessageBox.Show(str1);
+        }
 
         /// <summary>
         /// Để set turn khi đánh online
@@ -179,7 +242,8 @@ namespace CARO_X
         /// <param name="tmp"></param>
         public void BlockButton(bool tmp)
         {
-            
+            Button btn = btnChallenge;
+            btn.Enabled = tmp;
         }
 
         // Sự kiện nhất quán trên với 1
@@ -437,5 +501,72 @@ namespace CARO_X
             }
         }
 
+        private void btnNewGame_Click(object sender, EventArgs e)
+        {
+            this.ResetGame();
+            string msg = "again/"+this.playerName+"/"+this.playerBeCh;
+            try
+            {
+                byte[] data = StaticController.Encoding(msg);
+                this.playerSocket.Send(data);
+            }catch(Exception ex)
+            {
+                Console.WriteLine("Error -btnNewGame_Click- "+ex.Message);
+            }
+        }
+
+        private void btnLeaveRoom_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Do you want to quit this battle ?", "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.BlockAllChess(false);
+                this.ResetGame();
+                this.BlockButton(true);
+                string msg = "leave/" + this.playerName + "/" + this.playerBeCh;
+                byte[] data = StaticController.Encoding(msg);
+                try
+                {
+                    this.playerSocket.Send(data);
+                }catch (Exception ex)
+                {
+                    Console.WriteLine("Error -btnLeaveRoom_Click- "+ex.Message);
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                // Do nothing
+            }
+        }
+
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            // Xem như Logout
+            DialogResult dialogResult = MessageBox.Show("Do you want to exit this session ?", "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.BlockAllChess(false);
+                this.ResetGame();
+                this.BlockButton(true);
+                string msg = "leave/" + this.playerName + "/" + this.playerBeCh;
+                byte[] data = StaticController.Encoding(msg);
+                try
+                {
+                    this.playerSocket.Send(data);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error -btnLeaveRoom_Click- " + ex.Message);
+                }
+                this.Close();
+                this.login.menu.Show();
+                this.login.CloseConnection();
+                this.login.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                // Do nothing
+            }
+        }
     }
 }

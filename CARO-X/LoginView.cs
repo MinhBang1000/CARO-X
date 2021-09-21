@@ -123,14 +123,14 @@ namespace CARO_X
                         if (dialogResult == DialogResult.Yes)
                         {
                             msg1 = "canplay/true/" + content;
-                            // Unlock bàn cờ
-                            //this.multiplayerView.BlockAfterChess(false);
                             // Set turn
                             this.multiplayerView.SetTurn(true);
                             // Khóa các nút lại --> Mời bạn
                             this.multiplayerView.BlockButton(false);
                             // Nhớ tên người đấu
-                            this.multiplayerView.playerBeCh = userCh; 
+                            this.multiplayerView.playerBeCh = userCh;
+                            // Nó sẽ đánh sau
+                            this.multiplayerView.firstTurn = 1; // X
                         }
                         else if (dialogResult == DialogResult.No)
                         {
@@ -166,6 +166,8 @@ namespace CARO_X
                             this.multiplayerView.BlockButton(false);
                             // Nhớ người đánh
                             this.multiplayerView.playerBeCh = userBeCh;
+                            // Nhớ là ván này thằng này đánh trước
+                            this.multiplayerView.firstTurn = 0; //O
                         }
                         else
                         {
@@ -264,6 +266,88 @@ namespace CARO_X
                         int[] tempY = Y.ToArray();
                         this.multiplayerView.DrawRowWin(tempX,tempY);
                         
+                        break;
+                    }
+                case "again":
+                    {
+                        string msg1 = content;
+                        DialogResult dialogResult = MessageBox.Show("Do you want to play again with " + this.multiplayerView.playerBeCh, "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            msg1 = "canagain/true/"+ this.multiplayerView.playerName+"/"+this.multiplayerView.playerBeCh;
+                            // Reset các thứ
+                            this.multiplayerView.ResetGame();
+                            // Set turn
+                            this.multiplayerView.SetTurn(true);
+                            // Khóa các nút lại --> Mời bạn
+                            this.multiplayerView.BlockButton(false);
+                            // Lượt đánh
+                            this.multiplayerView.firstTurn = 1-this.multiplayerView.firstTurn; 
+                            // Set để đánh trước
+                            if (this.multiplayerView.firstTurn == 0)
+                            {
+                                this.multiplayerView.BlockAllChess(true);
+                            }
+                            else
+                            {
+                                this.multiplayerView.BlockAllChess(false);
+                            }
+                            
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            msg1 = "canagain/false/" + content;
+                        }
+                        byte[] data = StaticController.Encoding(msg1);
+                        try
+                        {
+                            this.loginSocket.Send(data);
+                        }catch(Exception ex)
+                        {
+                            Console.WriteLine("Error -ProccessRespond- "+ex.Message);
+                        }
+                        break;
+                    }
+                case "canagain":
+                    {
+                        string temp = content;
+                        string msg1 = "";
+                        string check = content.Substring(0,content.IndexOf("/"));
+                        if (check == "true")
+                        {
+                            MessageBox.Show(this.multiplayerView.playerBeCh + " said: OK. Both can play together again right now! Have fun!");
+                            // Set turn
+                            this.multiplayerView.SetTurn(true);
+                            // Khóa các nút lại --> Mời bạn
+                            this.multiplayerView.BlockButton(false);
+                            // Lượt đánh
+                            this.multiplayerView.firstTurn = 1-this.multiplayerView.firstTurn; 
+                            // Set để đánh trước
+                            if (this.multiplayerView.firstTurn == 0)
+                            {
+                                this.multiplayerView.BlockAllChess(true);
+                            }
+                            else
+                            {
+                                this.multiplayerView.BlockAllChess(false);
+                            }
+                            
+                        }
+                        else
+                        {
+                            MessageBox.Show(this.multiplayerView.playerBeCh + " said: NO, you can choose another user to play with");
+                            this.multiplayerView.ResetGame();
+                            this.multiplayerView.BlockAllChess(false);
+                            this.multiplayerView.BlockButton(true);
+                        }
+                        break;
+                    }
+                case "leave":
+                    {
+                        MessageBox.Show("Your friend is leaved. 'See you next time' "+this.multiplayerView.playerBeCh +" said.");
+                        this.multiplayerView.ResetGame();
+                        this.multiplayerView.BlockAllChess(false);
+                        this.multiplayerView.BlockButton(true);
                         break;
                     }
             }

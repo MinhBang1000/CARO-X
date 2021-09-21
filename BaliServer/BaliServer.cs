@@ -272,6 +272,57 @@ namespace BaliServer
                         }
                         break;
                     }
+                case "again":
+                    {
+                        string temp = content;
+                        string msg1 = "";
+                        string userBeCh = content.Substring(content.IndexOf("/")+1);
+                        Socket cli = clientList[userBeCh];
+                        msg1 = "again/" + temp;
+                        try
+                        {
+                            byte[] data = StaticController.Encoding(msg1);
+                            cli.Send(data);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error -ProcessRequest- "+ex.Message);
+                        }
+                        break;
+                    }
+                case "canagain":
+                    {
+                        string temp = content;
+                        content = content.Substring(content.IndexOf("/")+1);
+                        string userBeCh = content.Substring(content.IndexOf("/") + 1);
+                        Socket cli = clientList[userBeCh];
+                        string msg1 = "canagain/" + temp;
+                        try
+                        {
+                            byte[] data = StaticController.Encoding(msg1);
+                            cli.Send(data);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error -ProcessRequest- " + ex.Message);
+                        }
+                        break;
+                    }
+                case "leave":
+                    {
+                        string msg1 = content;
+                        string userBeCh = content.Substring(content.IndexOf("/")+1);
+                        Socket cli = clientList[userBeCh];
+                        msg1 = "leave/" + content;
+                        try
+                        {
+                            cli.Send(StaticController.Encoding(msg1));
+                        }catch (Exception ex)
+                        {
+                            Console.WriteLine("Error -ProcessRequest- " + ex.Message);
+                        }
+                        break;
+                    }
             }
         }
 
