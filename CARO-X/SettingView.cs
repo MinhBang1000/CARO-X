@@ -21,6 +21,8 @@ namespace CARO_X
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             this.CenterToScreen();
+            this.trackA.Value = Config.VOLUME;
+            this.txtAudio.Text = Config.VOLUME.ToString();
         }
 
         // FUNCTION
@@ -131,6 +133,7 @@ namespace CARO_X
                     vol = Convert.ToInt32(txtAudio.Text);
                     Config.VOLUME = vol;
                     trackA.Value = Config.VOLUME;
+                    Config.ChangeVolume();
                 }
                 catch (Exception ex)
                 {
@@ -141,12 +144,14 @@ namespace CARO_X
             {
                 Config.VOLUME = 20;
                 trackA.Value = Config.VOLUME;
+                Config.ChangeVolume();
             }
         }
 
         private void lstIco_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.ChooseIcon(this.lstIco.SelectedIndex);
+
             this.btnO.BackgroundImage = Image.FromFile(Config.PATH_O);
             this.btnX.BackgroundImage = Image.FromFile(Config.PATH_X);
         }
@@ -154,7 +159,9 @@ namespace CARO_X
         private void btnReset_Click(object sender, EventArgs e)
         {
             this.trackA.Value = 20;
+            this.txtAudio.Text = Convert.ToString(20);
             Config.VOLUME = 20;
+            Config.ChangeVolume();
             this.ChooseIcon(0);
             this.lstIco.SelectedIndex = 0;
             this.btnO.BackgroundImage = Image.FromFile(Config.PATH_O);

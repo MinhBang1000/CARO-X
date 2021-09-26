@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,10 +17,14 @@ namespace CARO_X
         public TwoPlayerView two;
         public LoginView login;
         private bool twoOrMulti = true;
+        // Thread for music
+        public Thread music = null;
         
         public MenuView()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
+            Config.PlaySound();
             proBar.Visible = false;
             two = new TwoPlayerView();
             two.menu = this;
@@ -35,8 +40,6 @@ namespace CARO_X
                 btn.Enabled = kt;
             }
         }
-
-
 
         // DRAG FORM
         [DllImport("user32")]
@@ -62,7 +65,6 @@ namespace CARO_X
         {
             Application.Exit();
         }
-
 
         private void timer_Tick(object sender, EventArgs e)
         {

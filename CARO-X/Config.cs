@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
+using WMPLib;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CARO_X
@@ -28,6 +31,26 @@ namespace CARO_X
 
         // Config Setting
         public static int VOLUME = 100;
-        public static int CHESS = 0; 
+        public static int CHESS = 0;
+
+        // Config Audio
+        public static Thread music;
+        public static WindowsMediaPlayer player;
+        public static void PlaySound()
+        {
+            music = new Thread(()=> {
+                player = new WindowsMediaPlayer();
+                player.URL = @"SOUND\\background_1.mp3";
+                player.settings.volume = VOLUME;
+                player.settings.setMode("loop",true);
+                player.controls.play();
+            });
+            music.IsBackground = true;
+            music.Start();
+        }
+        public static void ChangeVolume()
+        {
+            player.settings.volume = VOLUME;
+        }
     }
 }

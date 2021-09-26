@@ -30,6 +30,9 @@ namespace CARO_X
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.txtAudio = new System.Windows.Forms.TextBox();
             this.lstIco = new System.Windows.Forms.ListBox();
             this.btnX = new System.Windows.Forms.Button();
             this.btnO = new System.Windows.Forms.Button();
@@ -40,9 +43,6 @@ namespace CARO_X
             this.label3 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtAudio = new System.Windows.Forms.TextBox();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackA)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +64,40 @@ namespace CARO_X
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(637, 427);
             this.panel1.TabIndex = 0;
+            // 
+            // btnReset
+            // 
+            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.Location = new System.Drawing.Point(223, 348);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(186, 47);
+            this.btnReset.TabIndex = 7;
+            this.btnReset.Text = "Set Default";
+            this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Location = new System.Drawing.Point(414, 348);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(186, 47);
+            this.btnBack.TabIndex = 7;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // txtAudio
+            // 
+            this.txtAudio.Location = new System.Drawing.Point(173, 44);
+            this.txtAudio.Name = "txtAudio";
+            this.txtAudio.Size = new System.Drawing.Size(44, 22);
+            this.txtAudio.TabIndex = 6;
+            this.txtAudio.TextChanged += new System.EventHandler(this.txtAudio_TextChanged);
             // 
             // lstIco
             // 
@@ -188,40 +222,6 @@ namespace CARO_X
             this.label4.Size = new System.Drawing.Size(123, 37);
             this.label4.TabIndex = 12;
             this.label4.Text = "SETTING";
-            // 
-            // txtAudio
-            // 
-            this.txtAudio.Location = new System.Drawing.Point(173, 44);
-            this.txtAudio.Name = "txtAudio";
-            this.txtAudio.Size = new System.Drawing.Size(44, 22);
-            this.txtAudio.TabIndex = 6;
-            this.txtAudio.TextChanged += new System.EventHandler(this.txtAudio_TextChanged);
-            // 
-            // btnBack
-            // 
-            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBack.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Location = new System.Drawing.Point(414, 348);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(186, 47);
-            this.btnBack.TabIndex = 7;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = false;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReset.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(223, 348);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(186, 47);
-            this.btnReset.TabIndex = 7;
-            this.btnReset.Text = "Set Default";
-            this.btnReset.UseVisualStyleBackColor = false;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // SettingView
             // 
