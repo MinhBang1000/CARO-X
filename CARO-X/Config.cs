@@ -13,6 +13,8 @@ namespace CARO_X
         public static int CHESS_Y = 20;
         public static int CHESS_WIDTH = 32;
         public static int CHESS_HEIGHT = 32;
+        public static string PATH_O = "ICON\\O.png";
+        public static string PATH_X = "ICON\\X.png";
 
         // Config Rules
         public static int WIN_RULE = 5;
@@ -23,5 +25,9 @@ namespace CARO_X
 
         // Config Client 
         public static int PORT = 9999;
+
+        // Config Setting
+        public static int VOLUME = 100;
+        public static int CHESS = 0; 
     }
 }

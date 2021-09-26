@@ -124,6 +124,9 @@
     <EmbeddedResource Include="RegisterView.resx">
       <DependentUpon>RegisterView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SettingView.resx">
+      <DependentUpon>SettingView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TwoPlayerView.resx">
       <DependentUpon>TwoPlayerView.cs</DependentUpon>
     </EmbeddedResource>

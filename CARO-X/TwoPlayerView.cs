@@ -18,8 +18,11 @@ namespace CARO_X
         private Button[,] btn;
         // Lượt đánh và ô đã đánh
         private int[,] tick;
+        private bool playerOneTiming = true;
+        private bool playerTwoTiming = true;
         private bool turn;
-        private bool result = false; // chưa có kết quả trận đấu
+        private bool result = false; 
+        // chưa có kết quả trận đấu
 
         // Lớp xử lý trận đấu
         private BattleController battle;
@@ -118,6 +121,11 @@ namespace CARO_X
             }
             result = false;
             battle.ResetRowWin();
+            // Stop
+            this.timer1.Stop();
+            this.timer2.Stop();
+            // Setting Clock
+            this.trackM.Enabled = true;
         }
 
         public void DrawRowWin()
@@ -171,11 +179,11 @@ namespace CARO_X
                 btn.BackgroundImageLayout = ImageLayout.Stretch;
                 if (this.turn == true)
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\O.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_O);
                 }
                 else
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\X.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                 }
 
                 // Xử lý thắng thua ở đây
@@ -226,15 +234,19 @@ namespace CARO_X
                 {
                     this.PlayerTurn();
                 }
+                // Setting Clock
+                trackM.Enabled = false;
             }
             
         }
+        
         // Sự kiện Hover các Chess Button
         public void ChessEnter(Object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
             btn.FlatAppearance.BorderColor = Color.FromArgb(8, 200, 204);
         }
+        
         public void ChessLeave(Object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
@@ -259,6 +271,7 @@ namespace CARO_X
                 lbTime1.ForeColor = Color.FromArgb(54, 124, 138);
             }
         }
+        
         public void PlayerTime(Label lbTimer)
         {
             int minutes = Convert.ToInt32(lbTimer.Text.Substring(0,lbTimer.Text.IndexOf(":")));
@@ -270,11 +283,11 @@ namespace CARO_X
                 {
                     if (this.turn)
                     {
-                        MessageBox.Show("O is Winner");
+                        MessageBox.Show("X is Winner");
                     }
                     else
                     {
-                        MessageBox.Show("X is Winner");
+                        MessageBox.Show("O is Winner");
                     }
                 }
                 seconds = 59;
@@ -332,12 +345,18 @@ namespace CARO_X
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.PlayerTime(lbTime1);
+            if (this.playerOneTiming)
+            {
+                this.PlayerTime(lbTime1);
+            }
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            this.PlayerTime(lbTime2);
+            if (this.playerTwoTiming)
+            {
+                this.PlayerTime(lbTime2);
+            }
         }
 
         private void btnNewGame_Click(object sender, EventArgs e)
@@ -349,6 +368,40 @@ namespace CARO_X
         {
             this.Hide();
             this.menu.Show();
+        }
+
+        private void rOn_CheckedChanged(object sender, EventArgs e)
+        {
+            this.playerOneTiming = this.playerTwoTiming = true;
+        }
+
+        private void rOff_CheckedChanged(object sender, EventArgs e)
+        {
+            this.playerOneTiming = this.playerTwoTiming = false;
+        }
+
+        private void trackM_Scroll(object sender, EventArgs e)
+        {
+            int minutes = Convert.ToInt32(trackM.Value.ToString());
+            if (minutes < 10)
+            {
+                lbTime1.Text = "0"+minutes + ":00";
+                lbTime2.Text = "0" + minutes + ":00";
+            }
+            else
+            {
+                lbTime1.Text = minutes + ":00";
+                lbTime2.Text = minutes + ":00";
+            }
+            Config.TIME_TO_PLAY = minutes;
+        }
+
+        private void btnSetting_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SettingView setting = new SettingView();
+            setting.backForm = this;
+            setting.Show();
         }
     }
 }

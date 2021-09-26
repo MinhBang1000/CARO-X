@@ -257,11 +257,11 @@ namespace CARO_X
                 btn.BackgroundImageLayout = ImageLayout.Stretch;
                 if (this.turn == true)
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\O.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_O);
                 }
                 else
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\X.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                 }
 
                 // Xử lý thắng thua ở đây
@@ -375,11 +375,11 @@ namespace CARO_X
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
                     if (this.turn == true)
                     {
-                        btn.BackgroundImage = Image.FromFile("ICON\\O.png");
+                        btn.BackgroundImage = Image.FromFile(Config.PATH_O);
                     }
                     else
                     {
-                        btn.BackgroundImage = Image.FromFile("ICON\\X.png");
+                        btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                     }
                     // Đổi lượt
                     this.turn = !this.turn;
@@ -400,11 +400,11 @@ namespace CARO_X
                 btn.BackgroundImageLayout = ImageLayout.Stretch;
                 if (this.turn == true)
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\O.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_O);
                 }
                 else
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\X.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                 }
                 // Đổi lượt
                 this.turn = !this.turn;

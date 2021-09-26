@@ -97,5 +97,13 @@ namespace CARO_X
             this.Hide();
             this.twoOrMulti = false;
         }
+
+        private void btnSetting_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SettingView setting = new SettingView();
+            setting.backForm = this;
+            setting.Show();
+        }
     }
 }

@@ -128,6 +128,7 @@ namespace CARO_X
             this.btnSetting.TabIndex = 9;
             this.btnSetting.Text = "Setting";
             this.btnSetting.UseVisualStyleBackColor = false;
+            this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
             // btnOnline
             // 

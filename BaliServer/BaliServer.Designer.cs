@@ -33,14 +33,14 @@ namespace BaliServer
             this.label1 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lbRAM = new System.Windows.Forms.Label();
             this.lbCPU = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.autoSend = new System.Windows.Forms.Timer(this.components);
             this.timerPerformance = new System.Windows.Forms.Timer(this.components);
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +49,7 @@ namespace BaliServer
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label1.Location = new System.Drawing.Point(8, 5);
+            this.label1.Location = new System.Drawing.Point(15, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(189, 35);
             this.label1.TabIndex = 0;
@@ -80,6 +80,24 @@ namespace BaliServer
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(594, 333);
             this.panel1.TabIndex = 12;
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(73, 181);
+            this.progressBar2.MarqueeAnimationSpeed = 50;
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(435, 5);
+            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar2.TabIndex = 5;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(73, 70);
+            this.progressBar1.MarqueeAnimationSpeed = 50;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(435, 5);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 5;
             // 
             // lbRAM
             // 
@@ -139,24 +157,6 @@ namespace BaliServer
             // 
             this.timerPerformance.Interval = 1000;
             this.timerPerformance.Tick += new System.EventHandler(this.timerPerformance_Tick);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(73, 70);
-            this.progressBar1.MarqueeAnimationSpeed = 50;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(435, 5);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 5;
-            // 
-            // progressBar2
-            // 
-            this.progressBar2.Location = new System.Drawing.Point(73, 181);
-            this.progressBar2.MarqueeAnimationSpeed = 50;
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(435, 5);
-            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar2.TabIndex = 5;
             // 
             // BaliServer
             // 

@@ -30,7 +30,6 @@ namespace CARO_X
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TwoPlayerView));
             this.pnBoard = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbTime1 = new System.Windows.Forms.Label();
@@ -46,16 +45,25 @@ namespace CARO_X
             this.btnMenu = new System.Windows.Forms.Button();
             this.btnSetting = new System.Windows.Forms.Button();
             this.btnNewGame = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.trackM = new System.Windows.Forms.TrackBar();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rOff = new System.Windows.Forms.RadioButton();
+            this.rOn = new System.Windows.Forms.RadioButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackM)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnBoard
@@ -72,7 +80,7 @@ namespace CARO_X
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this._1_2);
-            this.panel2.Location = new System.Drawing.Point(873, 266);
+            this.panel2.Location = new System.Drawing.Point(873, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(240, 153);
             this.panel2.TabIndex = 1;
@@ -81,11 +89,11 @@ namespace CARO_X
             // 
             this.lbTime1.AutoSize = true;
             this.lbTime1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.lbTime1.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTime1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTime1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
             this.lbTime1.Location = new System.Drawing.Point(73, 58);
             this.lbTime1.Name = "lbTime1";
-            this.lbTime1.Size = new System.Drawing.Size(85, 37);
+            this.lbTime1.Size = new System.Drawing.Size(113, 49);
             this.lbTime1.TabIndex = 5;
             this.lbTime1.Text = "05:00";
             // 
@@ -116,11 +124,11 @@ namespace CARO_X
             this._1_2.AutoSize = true;
             this._1_2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this._1_2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this._1_2.Location = new System.Drawing.Point(15, 21);
+            this._1_2.Location = new System.Drawing.Point(15, 15);
             this._1_2.Name = "_1_2";
-            this._1_2.Size = new System.Drawing.Size(102, 24);
+            this._1_2.Size = new System.Drawing.Size(132, 24);
             this._1_2.TabIndex = 0;
-            this._1_2.Text = "Player One";
+            this._1_2.Text = "Player One - O";
             // 
             // panel3
             // 
@@ -128,7 +136,7 @@ namespace CARO_X
             this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.label9);
-            this.panel3.Location = new System.Drawing.Point(873, 425);
+            this.panel3.Location = new System.Drawing.Point(873, 162);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(240, 153);
             this.panel3.TabIndex = 1;
@@ -137,11 +145,11 @@ namespace CARO_X
             // 
             this.lbTime2.AutoSize = true;
             this.lbTime2.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.lbTime2.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTime2.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTime2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
             this.lbTime2.Location = new System.Drawing.Point(73, 62);
             this.lbTime2.Name = "lbTime2";
-            this.lbTime2.Size = new System.Drawing.Size(85, 37);
+            this.lbTime2.Size = new System.Drawing.Size(113, 49);
             this.lbTime2.TabIndex = 5;
             this.lbTime2.Text = "05:00";
             // 
@@ -172,11 +180,11 @@ namespace CARO_X
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label9.Location = new System.Drawing.Point(15, 21);
+            this.label9.Location = new System.Drawing.Point(15, 12);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(102, 24);
+            this.label9.Size = new System.Drawing.Size(129, 24);
             this.label9.TabIndex = 0;
-            this.label9.Text = "Player Two";
+            this.label9.Text = "Player Two - X";
             // 
             // panel5
             // 
@@ -214,6 +222,7 @@ namespace CARO_X
             this.btnSetting.TabIndex = 1;
             this.btnSetting.Text = "Setting";
             this.btnSetting.UseVisualStyleBackColor = false;
+            this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
             // btnNewGame
             // 
@@ -228,16 +237,6 @@ namespace CARO_X
             this.btnNewGame.Text = "New Game";
             this.btnNewGame.UseVisualStyleBackColor = false;
             this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(872, 52);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(241, 208);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // btnClose
             // 
@@ -265,10 +264,92 @@ namespace CARO_X
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Location = new System.Drawing.Point(0, 52);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1123, 722);
             this.panel1.TabIndex = 8;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.groupBox1);
+            this.panel4.Location = new System.Drawing.Point(874, 321);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(239, 205);
+            this.panel4.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.label6.Location = new System.Drawing.Point(168, 78);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(22, 18);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "10";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.label2.Location = new System.Drawing.Point(17, 78);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(15, 18);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "2";
+            // 
+            // trackM
+            // 
+            this.trackM.Location = new System.Drawing.Point(7, 93);
+            this.trackM.Minimum = 2;
+            this.trackM.Name = "trackM";
+            this.trackM.Size = new System.Drawing.Size(188, 56);
+            this.trackM.TabIndex = 8;
+            this.trackM.Value = 5;
+            this.trackM.Scroll += new System.EventHandler(this.trackM_Scroll);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.rOff);
+            this.groupBox1.Controls.Add(this.trackM);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.rOn);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox1.Location = new System.Drawing.Point(18, 19);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 158);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Setup Timing";
+            // 
+            // rOff
+            // 
+            this.rOff.AutoSize = true;
+            this.rOff.Location = new System.Drawing.Point(129, 29);
+            this.rOff.Name = "rOff";
+            this.rOff.Size = new System.Drawing.Size(48, 21);
+            this.rOff.TabIndex = 0;
+            this.rOff.TabStop = true;
+            this.rOff.Text = "Off";
+            this.rOff.UseVisualStyleBackColor = true;
+            this.rOff.CheckedChanged += new System.EventHandler(this.rOff_CheckedChanged);
+            // 
+            // rOn
+            // 
+            this.rOn.AutoSize = true;
+            this.rOn.Location = new System.Drawing.Point(28, 29);
+            this.rOn.Name = "rOn";
+            this.rOn.Size = new System.Drawing.Size(48, 21);
+            this.rOn.TabIndex = 0;
+            this.rOn.TabStop = true;
+            this.rOn.Text = "On";
+            this.rOn.UseVisualStyleBackColor = true;
+            this.rOn.CheckedChanged += new System.EventHandler(this.rOn_CheckedChanged);
             // 
             // timer1
             // 
@@ -288,10 +369,7 @@ namespace CARO_X
             this.ClientSize = new System.Drawing.Size(1126, 776);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel5);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnBoard);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -302,7 +380,11 @@ namespace CARO_X
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackM)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,7 +402,6 @@ namespace CARO_X
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label btnClose;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
@@ -331,5 +412,12 @@ namespace CARO_X
         private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.Button btnSetting;
         private System.Windows.Forms.Button btnNewGame;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rOff;
+        private System.Windows.Forms.RadioButton rOn;
+        private System.Windows.Forms.TrackBar trackM;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label2;
     }
 }
