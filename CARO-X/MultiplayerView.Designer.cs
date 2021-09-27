@@ -34,8 +34,12 @@ namespace CARO_X
             this.label4 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.picAvatar = new System.Windows.Forms.PictureBox();
+            this.btnEdit = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.lbTotalWin = new System.Windows.Forms.Label();
+            this.lbTotalScore = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.lbPlayer = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnMenu = new System.Windows.Forms.Button();
@@ -49,19 +53,15 @@ namespace CARO_X
             this.btnChallenge = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.lstOnl = new System.Windows.Forms.ListBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.btnEdit = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnReload)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // pnBoard
@@ -97,11 +97,11 @@ namespace CARO_X
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.picAvatar);
             this.panel2.Controls.Add(this.btnEdit);
             this.panel2.Controls.Add(this.pictureBox3);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.lbTotalWin);
+            this.panel2.Controls.Add(this.lbTotalScore);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.lbPlayer);
             this.panel2.Location = new System.Drawing.Point(873, 188);
@@ -109,27 +109,69 @@ namespace CARO_X
             this.panel2.Size = new System.Drawing.Size(241, 318);
             this.panel2.TabIndex = 11;
             // 
-            // label2
+            // picAvatar
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label2.Location = new System.Drawing.Point(131, 281);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 24);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Win: 10";
+            this.picAvatar.Image = ((System.Drawing.Image)(resources.GetObject("picAvatar.Image")));
+            this.picAvatar.Location = new System.Drawing.Point(20, 45);
+            this.picAvatar.Name = "picAvatar";
+            this.picAvatar.Size = new System.Drawing.Size(198, 181);
+            this.picAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAvatar.TabIndex = 2;
+            this.picAvatar.TabStop = false;
             // 
-            // label1
+            // btnEdit
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label1.Location = new System.Drawing.Point(14, 281);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 24);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Scores: 10";
+            this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
+            this.btnEdit.Location = new System.Drawing.Point(191, 9);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(27, 24);
+            this.btnEdit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnEdit.TabIndex = 3;
+            this.btnEdit.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(20, 9);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(27, 24);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            // 
+            // lbTotalWin
+            // 
+            this.lbTotalWin.AutoSize = true;
+            this.lbTotalWin.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalWin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.lbTotalWin.Location = new System.Drawing.Point(143, 281);
+            this.lbTotalWin.Name = "lbTotalWin";
+            this.lbTotalWin.Size = new System.Drawing.Size(75, 24);
+            this.lbTotalWin.TabIndex = 1;
+            this.lbTotalWin.Text = "Win: 10";
+            // 
+            // lbTotalScore
+            // 
+            this.lbTotalScore.AutoSize = true;
+            this.lbTotalScore.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalScore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.lbTotalScore.Location = new System.Drawing.Point(14, 281);
+            this.lbTotalScore.Name = "lbTotalScore";
+            this.lbTotalScore.Size = new System.Drawing.Size(94, 24);
+            this.lbTotalScore.TabIndex = 1;
+            this.lbTotalScore.Text = "Scores: 10";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.label5.Location = new System.Drawing.Point(51, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 24);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Profile";
             // 
             // lbPlayer
             // 
@@ -287,48 +329,6 @@ namespace CARO_X
             this.lstOnl.Size = new System.Drawing.Size(198, 68);
             this.lstOnl.TabIndex = 0;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(20, 45);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(198, 181);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label5.Location = new System.Drawing.Point(51, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 24);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Profile";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(20, 9);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(27, 24);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
-            this.btnEdit.Location = new System.Drawing.Point(191, 9);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(27, 24);
-            this.btnEdit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnEdit.TabIndex = 3;
-            this.btnEdit.TabStop = false;
-            // 
             // MultiplayerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -345,15 +345,15 @@ namespace CARO_X
             this.Text = "Multiplayer";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnReload)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -366,8 +366,8 @@ namespace CARO_X
         private System.Windows.Forms.Label btnClose;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbTotalWin;
+        private System.Windows.Forms.Label lbTotalScore;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox lstOnl;
@@ -380,7 +380,7 @@ namespace CARO_X
         private System.Windows.Forms.Button btnSetting;
         private System.Windows.Forms.Button btnLeaveRoom;
         private System.Windows.Forms.Button btnNewGame;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picAvatar;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox btnEdit;
         private System.Windows.Forms.PictureBox pictureBox3;

@@ -52,5 +52,8 @@ namespace CARO_X
         {
             player.settings.volume = VOLUME;
         }
+
+        // Config Avatar
+        public static string FOLDER = "AVATAR\\";
     }
 }

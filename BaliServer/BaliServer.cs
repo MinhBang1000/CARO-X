@@ -1,5 +1,6 @@
 ﻿using BaliServer.Controllers;
 using CARO_X.Controllers;
+using CARO_X.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using Newtonsoft.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -119,21 +121,37 @@ namespace BaliServer
                         string username = content.Substring(0,content.IndexOf("/"));
                         string password = content.Substring(content.IndexOf("/")+1);
                         // Kiến trúc để lấy dữ liệu về mô phỏng Json
-                        //Dictionary<string, Object> data = new Dictionary<string, object>();
-                        //bool check = userController.Login(username,password,data);
-                        bool check = true;
+                        bool check = this.userController.Login(username,password);
                         string sendData = "login/";
                         byte[] sendCode = null;
                         if (check)
                         {
-                            sendCode = StaticController.Encoding(sendData + "true");
+                            string json = this.userController.SelectInfo(username);
+                            sendCode = StaticController.Encoding(sendData + "true/" + json);
                             clientList.Add(username, client);
                         }
                         else
                         {
-                            sendCode = StaticController.Encoding(sendData + "false");
+                            sendCode = StaticController.Encoding(sendData + "false/");
                         }
                         client.Send(sendCode);
+                        break;
+                    }
+                case "register":
+                    {
+                        // Đăng ký tài khoản
+                        string json = content;
+                        User userInfo = JsonConvert.DeserializeObject<User>(json);
+                        userInfo.Connect();
+                        bool check = userInfo.Insert();
+                        if (check)
+                        {
+                            Console.WriteLine("Register OK");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Register Not OK");
+                        }
                         break;
                     }
                 case "online": // Yêu cầu gửi danh sách người dùng đang online
@@ -194,6 +212,7 @@ namespace BaliServer
                 case "canplay":
                     {
                         string msg1 = "canplay/" + content;
+                        string check = content.Substring(0,content.IndexOf("/")); // true or false
                         content = content.Substring(content.IndexOf("/") + 1);
                         string userCh = content.Substring(0, content.IndexOf("/"));
                         string userBeCh = content.Substring(content.IndexOf("/") + 1);
@@ -321,8 +340,6 @@ namespace BaliServer
             }
         }
 
-        
-
         // DRAG FORM
         [DllImport("user32")]
         private static extern bool ReleaseCapture();
@@ -350,7 +367,7 @@ namespace BaliServer
         {
             MessageBox.Show("Server is running!");
             CPU = new PerformanceCounter("Processor Information", "% Processor Time", "_Total");
-            RAM = new PerformanceCounter("Memory", "Available MBytes");
+            RAM = new PerformanceCounter("Memory", "Available MBytes");;
             timerPerformance.Start();
             this.Connect();
         }

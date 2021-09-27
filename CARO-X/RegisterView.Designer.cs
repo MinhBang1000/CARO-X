@@ -37,14 +37,19 @@ namespace CARO_X
             this.label4 = new System.Windows.Forms.Label();
             this.txtConfirm = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtNickname = new System.Windows.Forms.TextBox();
+            this.txtFullname = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.rMale = new System.Windows.Forms.RadioButton();
             this.rFemale = new System.Windows.Forms.RadioButton();
-            this.btnClose = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnBrowser = new System.Windows.Forms.Button();
+            this.btnRegister = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtBrowser = new System.Windows.Forms.TextBox();
+            this.dialogFile = new System.Windows.Forms.OpenFileDialog();
+            this.btnClose = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,11 +58,11 @@ namespace CARO_X
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label5.Location = new System.Drawing.Point(216, 53);
+            this.label5.Location = new System.Drawing.Point(220, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(253, 73);
+            this.label5.Size = new System.Drawing.Size(268, 73);
             this.label5.TabIndex = 12;
-            this.label5.Text = "CARO - X";
+            this.label5.Text = "REGISTER";
             // 
             // txtPassword
             // 
@@ -67,7 +72,7 @@ namespace CARO_X
             this.txtPassword.Location = new System.Drawing.Point(112, 256);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(465, 30);
-            this.txtPassword.TabIndex = 10;
+            this.txtPassword.TabIndex = 1;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // txtUsername
@@ -78,7 +83,7 @@ namespace CARO_X
             this.txtUsername.Location = new System.Drawing.Point(112, 175);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(465, 32);
-            this.txtUsername.TabIndex = 9;
+            this.txtUsername.TabIndex = 0;
             // 
             // label2
             // 
@@ -121,7 +126,7 @@ namespace CARO_X
             this.txtConfirm.Location = new System.Drawing.Point(112, 335);
             this.txtConfirm.Name = "txtConfirm";
             this.txtConfirm.Size = new System.Drawing.Size(465, 30);
-            this.txtConfirm.TabIndex = 10;
+            this.txtConfirm.TabIndex = 2;
             this.txtConfirm.UseSystemPasswordChar = true;
             // 
             // label6
@@ -133,17 +138,17 @@ namespace CARO_X
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 23);
             this.label6.TabIndex = 8;
-            this.label6.Text = "Nickname";
+            this.label6.Text = "Full Name";
             // 
-            // txtNickname
+            // txtFullname
             // 
-            this.txtNickname.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(17)))), ((int)(((byte)(24)))));
-            this.txtNickname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNickname.ForeColor = System.Drawing.SystemColors.Info;
-            this.txtNickname.Location = new System.Drawing.Point(111, 415);
-            this.txtNickname.Name = "txtNickname";
-            this.txtNickname.Size = new System.Drawing.Size(465, 32);
-            this.txtNickname.TabIndex = 9;
+            this.txtFullname.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(17)))), ((int)(((byte)(24)))));
+            this.txtFullname.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFullname.ForeColor = System.Drawing.SystemColors.Info;
+            this.txtFullname.Location = new System.Drawing.Point(111, 415);
+            this.txtFullname.Name = "txtFullname";
+            this.txtFullname.Size = new System.Drawing.Size(465, 32);
+            this.txtFullname.TabIndex = 3;
             // 
             // label7
             // 
@@ -163,7 +168,7 @@ namespace CARO_X
             this.rMale.Location = new System.Drawing.Point(112, 505);
             this.rMale.Name = "rMale";
             this.rMale.Size = new System.Drawing.Size(59, 21);
-            this.rMale.TabIndex = 13;
+            this.rMale.TabIndex = 4;
             this.rMale.TabStop = true;
             this.rMale.Text = "Male";
             this.rMale.UseVisualStyleBackColor = true;
@@ -175,10 +180,93 @@ namespace CARO_X
             this.rFemale.Location = new System.Drawing.Point(184, 505);
             this.rFemale.Name = "rFemale";
             this.rFemale.Size = new System.Drawing.Size(75, 21);
-            this.rFemale.TabIndex = 13;
+            this.rFemale.TabIndex = 5;
             this.rFemale.TabStop = true;
             this.rFemale.Text = "Female";
             this.rFemale.UseVisualStyleBackColor = true;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.AutoSize = true;
+            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogin.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
+            this.btnLogin.Location = new System.Drawing.Point(283, 690);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(120, 23);
+            this.btnLogin.TabIndex = 8;
+            this.btnLogin.Text = "Back to login ?";
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnBrowser);
+            this.panel2.Controls.Add(this.btnLogin);
+            this.panel2.Controls.Add(this.btnRegister);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.txtBrowser);
+            this.panel2.Location = new System.Drawing.Point(2, 50);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(719, 749);
+            this.panel2.TabIndex = 16;
+            // 
+            // btnBrowser
+            // 
+            this.btnBrowser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnBrowser.Location = new System.Drawing.Point(109, 537);
+            this.btnBrowser.Name = "btnBrowser";
+            this.btnBrowser.Size = new System.Drawing.Size(93, 32);
+            this.btnBrowser.TabIndex = 6;
+            this.btnBrowser.Text = "Browser";
+            this.btnBrowser.UseVisualStyleBackColor = true;
+            this.btnBrowser.Click += new System.EventHandler(this.btnBrowser_Click);
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnRegister.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegister.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegister.Location = new System.Drawing.Point(110, 610);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(466, 68);
+            this.btnRegister.TabIndex = 7;
+            this.btnRegister.Text = "Register";
+            this.btnRegister.UseVisualStyleBackColor = false;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
+            this.label3.Location = new System.Drawing.Point(105, 497);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 23);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Avatar";
+            // 
+            // txtBrowser
+            // 
+            this.txtBrowser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(17)))), ((int)(((byte)(24)))));
+            this.txtBrowser.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBrowser.ForeColor = System.Drawing.SystemColors.Info;
+            this.txtBrowser.Location = new System.Drawing.Point(208, 537);
+            this.txtBrowser.Name = "txtBrowser";
+            this.txtBrowser.ReadOnly = true;
+            this.txtBrowser.Size = new System.Drawing.Size(366, 32);
+            this.txtBrowser.TabIndex = 9;
+            // 
+            // dialogFile
+            // 
+            this.dialogFile.FileName = "Choose Avatar";
+            this.dialogFile.Filter = "Files|*.jpg;*.jpeg;*.png";
+            this.dialogFile.InitialDirectory = "F:\\";
+            this.dialogFile.RestoreDirectory = true;
+            this.dialogFile.Title = "Browser Avatar Picture";
             // 
             // btnClose
             // 
@@ -193,55 +281,31 @@ namespace CARO_X
             this.btnClose.Text = "X";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnLogin
+            // label8
             // 
-            this.btnLogin.AutoSize = true;
-            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLogin.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
-            this.btnLogin.Location = new System.Drawing.Point(288, 650);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(120, 23);
-            this.btnLogin.TabIndex = 15;
-            this.btnLogin.Text = "Back to login ?";
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Location = new System.Drawing.Point(2, 50);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(719, 647);
-            this.panel2.TabIndex = 16;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(108, 515);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(466, 68);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Register";
-            this.button1.UseVisualStyleBackColor = false;
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.label8.Location = new System.Drawing.Point(5, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(128, 37);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "CARO - X";
             // 
             // RegisterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(17)))), ((int)(((byte)(24)))));
-            this.ClientSize = new System.Drawing.Size(725, 699);
-            this.Controls.Add(this.btnLogin);
+            this.ClientSize = new System.Drawing.Size(725, 797);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.rFemale);
             this.Controls.Add(this.rMale);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.txtConfirm);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtNickname);
+            this.Controls.Add(this.txtFullname);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.label6);
@@ -252,6 +316,7 @@ namespace CARO_X
             this.Name = "RegisterView";
             this.Text = "RegisterView";
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,13 +332,18 @@ namespace CARO_X
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtConfirm;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtNickname;
+        private System.Windows.Forms.TextBox txtFullname;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton rMale;
         private System.Windows.Forms.RadioButton rFemale;
-        private System.Windows.Forms.Label btnClose;
         private System.Windows.Forms.Label btnLogin;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.OpenFileDialog dialogFile;
+        private System.Windows.Forms.Button btnBrowser;
+        private System.Windows.Forms.TextBox txtBrowser;
+        private System.Windows.Forms.Label btnClose;
+        private System.Windows.Forms.Label label8;
     }
 }

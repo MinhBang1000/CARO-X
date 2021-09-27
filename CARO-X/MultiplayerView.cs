@@ -8,8 +8,10 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CARO_X.Models;
 
 namespace CARO_X
 {
@@ -22,6 +24,7 @@ namespace CARO_X
         public string playerBeCh;
         public int firstTurn;
         public bool playing = false;
+        public UserResponse userInfo;
 
         public MenuView menu;
         private Button[,] btn;
@@ -330,6 +333,14 @@ namespace CARO_X
         {
             Button btn = Sender as Button;
             btn.FlatAppearance.BorderColor = Color.FromArgb(54, 124, 138);
+        }
+
+        public void SetupInfoPlayer(string json)
+        {
+            userInfo = JsonConvert.DeserializeObject<UserResponse>(json);
+            this.lbTotalScore.Text = "Score:" + userInfo.total_score;
+            this.lbTotalWin.Text = "Win:" + userInfo.total_win;
+            this.picAvatar.Image = Image.FromFile(userInfo.avatar);
         }
 
         // SERVER ACTION

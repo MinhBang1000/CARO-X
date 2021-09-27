@@ -44,6 +44,8 @@ namespace CARO_X
             // O đánh trước
             turn = true;
             this.battle = new BattleController();
+            this.lbScoreO.Text = 0.ToString();
+            this.lbScoreX.Text = 0.ToString();
         }
 
         public void InitChessBoard()
@@ -213,6 +215,7 @@ namespace CARO_X
                         timer1.Stop();
                         timer2.Stop();
                         MessageBox.Show("O is Winner");
+                        this.lbScoreO.Text = Convert.ToString(Convert.ToInt32(lbScoreO.Text) + 1);
                     }
                     else
                     {
@@ -225,6 +228,7 @@ namespace CARO_X
                             timer1.Stop();
                             timer2.Stop();
                             MessageBox.Show("X is Winner");
+                            this.lbScoreX.Text = Convert.ToString(Convert.ToInt32(lbScoreX.Text) + 1);
                         }
                     }
                 }

@@ -88,8 +88,10 @@ namespace CARO_X
             {
                 case "login":
                     {
-                        if (content == "true")
+                        string temp = content.Substring(0, content.IndexOf("/"));
+                        if (temp == "true")
                         {
+                            string json = content.Substring(content.IndexOf("/")+1);
                             this.multiplayerView = new MultiplayerView();
                             this.multiplayerView.login = this;
                             this.multiplayerView.playerSocket = loginSocket;
@@ -98,6 +100,7 @@ namespace CARO_X
                             this.multiplayerView.SetNamePlayer();
                             this.Invoke((MethodInvoker)delegate {
                                 this.multiplayerView.SetCenterForm();
+                                this.multiplayerView.SetupInfoPlayer(json);
                                 this.multiplayerView.BlockAfterChess(false);
                                 this.multiplayerView.Show();
                                 this.Hide();
@@ -115,23 +118,32 @@ namespace CARO_X
                         string userCh = content.Substring(0,content.IndexOf("/"));
                         string userBeCh = content.Substring(content.IndexOf("/") + 1);
                         string msg1 = "";
-                        DialogResult dialogResult = MessageBox.Show("Do you want to play with "+userCh, "CARO-X MESSAGE", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.Yes)
+                        if (this.multiplayerView.playing == false)
                         {
-                            msg1 = "canplay/true/" + content;
-                            // Set turn
-                            this.multiplayerView.SetTurn(true);
-                            // Khóa các nút lại --> Mời bạn
-                            this.multiplayerView.BlockButton(false);
-                            // Nhớ tên người đấu
-                            this.multiplayerView.playerBeCh = userCh;
-                            // Nó sẽ đánh sau
-                            this.multiplayerView.firstTurn = 1; // X
-                            // Đang chơi 
-                            this.multiplayerView.playing = true;
+                            // Đang không chơi với ai
+                            DialogResult dialogResult = MessageBox.Show("Do you want to play with " + userCh, "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                msg1 = "canplay/true/" + content;
+                                // Set turn
+                                this.multiplayerView.SetTurn(true);
+                                // Khóa các nút lại --> Mời bạn
+                                this.multiplayerView.BlockButton(false);
+                                // Nhớ tên người đấu
+                                this.multiplayerView.playerBeCh = userCh;
+                                // Nó sẽ đánh sau
+                                this.multiplayerView.firstTurn = 1; // X
+                                                                    // Đang chơi 
+                                this.multiplayerView.playing = true;
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                msg1 = "canplay/false/" + content;
+                            }
                         }
-                        else if (dialogResult == DialogResult.No)
+                        else
                         {
+                            // đang chơi với người khác rồi
                             msg1 = "canplay/false/" + content;
                         }
                         byte[] data = StaticController.Encoding(msg1);
@@ -358,6 +370,12 @@ namespace CARO_X
             }
         }
 
+        public void RegisterDone(string username, string password)
+        {
+            txtUsername.Text = username;
+            txtPassword.Text = password;
+        }
+        
         // DRAG FORM
         [DllImport("user32")]
         private static extern bool ReleaseCapture();
@@ -396,6 +414,7 @@ namespace CARO_X
         private void btnRegister_Click(object sender, EventArgs e)
         {
             RegisterView re = new RegisterView();
+            re.registerSocket = this.loginSocket;
             re.Show();
             re.login = this;
             this.Hide();

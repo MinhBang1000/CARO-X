@@ -33,12 +33,12 @@ namespace CARO_X
             this.pnBoard = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbTime1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lbScoreO = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this._1_2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lbTime2 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lbScoreX = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -49,11 +49,11 @@ namespace CARO_X
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.trackM = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.rOff = new System.Windows.Forms.RadioButton();
+            this.trackM = new System.Windows.Forms.TrackBar();
+            this.label2 = new System.Windows.Forms.Label();
             this.rOn = new System.Windows.Forms.RadioButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
@@ -62,8 +62,8 @@ namespace CARO_X
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackM)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackM)).BeginInit();
             this.SuspendLayout();
             // 
             // pnBoard
@@ -77,7 +77,7 @@ namespace CARO_X
             // panel2
             // 
             this.panel2.Controls.Add(this.lbTime1);
-            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.lbScoreO);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this._1_2);
             this.panel2.Location = new System.Drawing.Point(873, 3);
@@ -97,16 +97,16 @@ namespace CARO_X
             this.lbTime1.TabIndex = 5;
             this.lbTime1.Text = "05:00";
             // 
-            // label5
+            // lbScoreO
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label5.Location = new System.Drawing.Point(61, 118);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 24);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "5";
+            this.lbScoreO.AutoSize = true;
+            this.lbScoreO.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbScoreO.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.lbScoreO.Location = new System.Drawing.Point(61, 118);
+            this.lbScoreO.Name = "lbScoreO";
+            this.lbScoreO.Size = new System.Drawing.Size(20, 24);
+            this.lbScoreO.TabIndex = 4;
+            this.lbScoreO.Text = "5";
             // 
             // label3
             // 
@@ -133,7 +133,7 @@ namespace CARO_X
             // panel3
             // 
             this.panel3.Controls.Add(this.lbTime2);
-            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.lbScoreX);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Location = new System.Drawing.Point(873, 162);
@@ -153,16 +153,16 @@ namespace CARO_X
             this.lbTime2.TabIndex = 5;
             this.lbTime2.Text = "05:00";
             // 
-            // label7
+            // lbScoreX
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label7.Location = new System.Drawing.Point(59, 118);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(20, 24);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "1";
+            this.lbScoreX.AutoSize = true;
+            this.lbScoreX.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbScoreX.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.lbScoreX.Location = new System.Drawing.Point(59, 118);
+            this.lbScoreX.Name = "lbScoreX";
+            this.lbScoreX.Size = new System.Drawing.Size(20, 24);
+            this.lbScoreX.TabIndex = 4;
+            this.lbScoreX.Text = "1";
             // 
             // label8
             // 
@@ -280,38 +280,6 @@ namespace CARO_X
             this.panel4.Size = new System.Drawing.Size(239, 205);
             this.panel4.TabIndex = 0;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label6.Location = new System.Drawing.Point(168, 78);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(22, 18);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "10";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label2.Location = new System.Drawing.Point(17, 78);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(15, 18);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "2";
-            // 
-            // trackM
-            // 
-            this.trackM.Location = new System.Drawing.Point(7, 93);
-            this.trackM.Minimum = 2;
-            this.trackM.Name = "trackM";
-            this.trackM.Size = new System.Drawing.Size(188, 56);
-            this.trackM.TabIndex = 8;
-            this.trackM.Value = 5;
-            this.trackM.Scroll += new System.EventHandler(this.trackM_Scroll);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label6);
@@ -327,6 +295,17 @@ namespace CARO_X
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Setup Timing";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.label6.Location = new System.Drawing.Point(168, 78);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(22, 18);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "10";
+            // 
             // rOff
             // 
             this.rOff.AutoSize = true;
@@ -338,6 +317,27 @@ namespace CARO_X
             this.rOff.Text = "Off";
             this.rOff.UseVisualStyleBackColor = true;
             this.rOff.CheckedChanged += new System.EventHandler(this.rOff_CheckedChanged);
+            // 
+            // trackM
+            // 
+            this.trackM.Location = new System.Drawing.Point(7, 93);
+            this.trackM.Minimum = 2;
+            this.trackM.Name = "trackM";
+            this.trackM.Size = new System.Drawing.Size(188, 56);
+            this.trackM.TabIndex = 8;
+            this.trackM.Value = 5;
+            this.trackM.Scroll += new System.EventHandler(this.trackM_Scroll);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.label2.Location = new System.Drawing.Point(17, 78);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(15, 18);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "2";
             // 
             // rOn
             // 
@@ -382,9 +382,9 @@ namespace CARO_X
             this.panel5.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackM)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,10 +395,10 @@ namespace CARO_X
         private System.Windows.Forms.Panel pnBoard;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label _1_2;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbScoreO;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lbScoreX;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel5;
