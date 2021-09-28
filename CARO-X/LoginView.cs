@@ -218,15 +218,18 @@ namespace CARO_X
                         int y = Convert.ToInt32(content.Substring(0, content.IndexOf("/")));
                         content = content.Substring(content.IndexOf("/") + 1);
                         int win = Convert.ToInt32(content.Substring(0));
-                        
                         this.Invoke((MethodInvoker)delegate {
                             this.multiplayerView.BlockAfterChess(true);
                             this.multiplayerView.ChessTick(x,y,win);
                         });
                         break;
                     }
-                case "winner":
+                case "winner": // người nhận được thông điệp này là người thắng
                     {
+                        // cộng điểm trên màn hình
+                        this.Invoke((MethodInvoker)delegate {
+                            this.multiplayerView.UpdatePlus(true);
+                        });
                         string msg1 = content;
                         string userCh = content.Substring(0, content.IndexOf("/"));
                         string userBeCh = content.Substring(content.IndexOf("/")+1);
@@ -249,8 +252,12 @@ namespace CARO_X
                         }
                         break;
                     }
-                case "drawwin":
+                case "drawwin": // người nhận được thông điệp này là người thua
                     {
+                        // cộng điểm trên màn hình -> Cộng số trận đã đấu
+                        this.Invoke((MethodInvoker)delegate {
+                            this.multiplayerView.UpdatePlus(false);
+                        });
                         string msg1 = content;
                         content = content.Substring(content.IndexOf("/") + 1);
                         content = content.Substring(content.IndexOf("/") + 1);

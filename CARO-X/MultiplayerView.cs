@@ -343,6 +343,18 @@ namespace CARO_X
             this.picAvatar.Image = Image.FromFile(userInfo.avatar);
         }
 
+        public void UpdatePlus(bool win)
+        {
+            if (win)
+            {
+                userInfo.total_score++;
+                userInfo.total_win++;
+                this.lbTotalScore.Text = "Score: " + userInfo.total_score;
+                this.lbTotalWin.Text = "Win: " + userInfo.total_win;
+            }
+            userInfo.total_battle++;
+        }
+        
         // SERVER ACTION
         public void AddItemOnline(string item)
         {
@@ -451,8 +463,32 @@ namespace CARO_X
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.login.CloseConnection();
-            Application.Exit();
+            // Xem như Logout
+            DialogResult dialogResult = MessageBox.Show("Do you want to exit this session ?", "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.BlockAllChess(false);
+                this.ResetGame();
+                this.BlockButton(true);
+                string msg = "leave/" + this.playerName + "/" + this.playerBeCh;
+                byte[] data = StaticController.Encoding(msg);
+                try
+                {
+                    this.playerSocket.Send(data);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error -btnLeaveRoom_Click- " + ex.Message);
+                }
+                this.Close();
+                this.login.menu.Show();
+                this.login.CloseConnection();
+                this.login.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                // Do nothing
+            }
         }
 
         private void btnReload_Click(object sender, EventArgs e)
@@ -552,6 +588,16 @@ namespace CARO_X
             {
                 // Do nothing
             }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProfileView pro = new ProfileView();
+            pro.multi = this;
+            pro.username = this.playerName;
+            pro.userInfo = this.userInfo;
+            pro.Show();
         }
     }
 }

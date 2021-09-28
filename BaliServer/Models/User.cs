@@ -129,5 +129,24 @@ namespace CARO_X.Models
             return count != 0;
         }
 
+        public bool UpdatePlusWin(string username)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connect;
+            cmd.CommandText = "UPDATE Users SET total_score=total_score+1, total_battle=total_battle+1,total_win=total_win+1 WHERE username = @USERNAME";
+            cmd.Parameters.Add("@USERNAME", System.Data.SqlDbType.VarChar).Value = username;
+            int count = cmd.ExecuteNonQuery();
+            return count != 0;
+        } // Cộng điểm cho người thắng
+
+        public bool UpdatePlusLost(string username)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connect;
+            cmd.CommandText = "UPDATE Users SET total_battle=total_battle+1 WHERE username = @USERNAME";
+            cmd.Parameters.Add("@USERNAME", System.Data.SqlDbType.VarChar).Value = username;
+            int count = cmd.ExecuteNonQuery();
+            return count != 0;
+        } // Cộng điểm cho người thua
     }
 }

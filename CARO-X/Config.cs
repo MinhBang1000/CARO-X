@@ -30,7 +30,7 @@ namespace CARO_X
         public static int PORT = 9999;
 
         // Config Setting
-        public static int VOLUME = 100;
+        public static int VOLUME = 0;
         public static int CHESS = 0;
 
         // Config Audio

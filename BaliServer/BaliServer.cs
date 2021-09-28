@@ -253,7 +253,15 @@ namespace BaliServer
                     {
                         string msg1 = content;
                         string userCh = content.Substring(0,content.IndexOf("/"));
-                        string userBeCh = content.Substring(content.IndexOf("/")+1);
+                        string userBeCh = content.Substring(content.IndexOf("/")+1); // thằng này thắng
+                        string winnerPlayer = userBeCh;
+                        // cộng điểm cho cả 2 người chơi
+                        // người thắng
+                        User userWin = new User();
+                        userWin.UpdatePlusWin(userBeCh);
+                        // người thua
+                        User userLose = new User();
+                        userLose.UpdatePlusLost(userCh);
                         Socket cli = clientList[userBeCh];
                         msg1 = "winner/" + content;
                         byte[] data = StaticController.Encoding(msg1);
