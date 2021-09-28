@@ -30,10 +30,11 @@ namespace CARO_X
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            this.CenterToScreen();
             this.Connect();
         }
+        
         // DEFINE
-
         public void Connect()
         {
             loginIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"),Config.PORT);
@@ -79,10 +80,6 @@ namespace CARO_X
             Console.WriteLine("Connection Be Closed or Can't Connect");
         }
 
-        /// <summary>
-        /// Hàm xử lý các respond từ server cho các View khác luôn 
-        /// </summary>
-        /// <param name="msg"></param>
         public void ProccessRespond(string msg)
         {
             string signal = msg.Substring(0, msg.IndexOf("/"));
@@ -91,15 +88,20 @@ namespace CARO_X
             {
                 case "login":
                     {
-                        if (content == "true")
+                        string temp = content.Substring(0, content.IndexOf("/"));
+                        if (temp == "true")
                         {
+                            string json = content.Substring(content.IndexOf("/")+1);
                             this.multiplayerView = new MultiplayerView();
                             this.multiplayerView.login = this;
                             this.multiplayerView.playerSocket = loginSocket;
                             this.multiplayerView.playerName = txtUsername.Text;
-                            this.multiplayerView.BlockBoardMultiplayer(-3);
+                            this.multiplayerView.playing = false; // chưa chơi với ai
                             this.multiplayerView.SetNamePlayer();
                             this.Invoke((MethodInvoker)delegate {
+                                this.multiplayerView.SetCenterForm();
+                                this.multiplayerView.SetupInfoPlayer(json);
+                                this.multiplayerView.BlockAfterChess(false);
                                 this.multiplayerView.Show();
                                 this.Hide();
                             });
@@ -116,21 +118,32 @@ namespace CARO_X
                         string userCh = content.Substring(0,content.IndexOf("/"));
                         string userBeCh = content.Substring(content.IndexOf("/") + 1);
                         string msg1 = "";
-                        DialogResult dialogResult = MessageBox.Show("Do you want to play with "+userCh, "CARO-X MESSAGE", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.Yes)
+                        if (this.multiplayerView.playing == false)
                         {
-                            msg1 = "canplay/true/" + content;
-                            // Unlock bàn cờ
-                            this.multiplayerView.BlockBoardMultiplayer(-1);
-                            // Set turn
-                            this.multiplayerView.SetTurn(true);
-                            // Khóa các nút lại --> Mời bạn
-                            this.multiplayerView.BlockButton(false);
-                            // Nhớ tên người đấu
-                            this.multiplayerView.playerBeCh = userCh; 
+                            // Đang không chơi với ai
+                            DialogResult dialogResult = MessageBox.Show("Do you want to play with " + userCh, "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                msg1 = "canplay/true/" + content;
+                                // Set turn
+                                this.multiplayerView.SetTurn(true);
+                                // Khóa các nút lại --> Mời bạn
+                                this.multiplayerView.BlockButton(false);
+                                // Nhớ tên người đấu
+                                this.multiplayerView.playerBeCh = userCh;
+                                // Nó sẽ đánh sau
+                                this.multiplayerView.firstTurn = 1; // X
+                                                                    // Đang chơi 
+                                this.multiplayerView.playing = true;
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                msg1 = "canplay/false/" + content;
+                            }
                         }
-                        else if (dialogResult == DialogResult.No)
+                        else
                         {
+                            // đang chơi với người khác rồi
                             msg1 = "canplay/false/" + content;
                         }
                         byte[] data = StaticController.Encoding(msg1);
@@ -156,13 +169,17 @@ namespace CARO_X
                         {
                             MessageBox.Show(userBeCh + " said: OK. Both can play together right now! Have fun!");
                             // Unlock bàn cờ
-                            this.multiplayerView.BlockBoardMultiplayer(-1);
+                            this.multiplayerView.BlockAfterChess(true);
                             // Set turn
                             this.multiplayerView.SetTurn(true);
                             // Khóa các nút lại --> Mời bạn
                             this.multiplayerView.BlockButton(false);
                             // Nhớ người đánh
                             this.multiplayerView.playerBeCh = userBeCh;
+                            // Nhớ là ván này thằng này đánh trước
+                            this.multiplayerView.firstTurn = 0; //O
+                            // Đang chơi 
+                            this.multiplayerView.playing = true;
                         }
                         else
                         {
@@ -201,14 +218,18 @@ namespace CARO_X
                         int y = Convert.ToInt32(content.Substring(0, content.IndexOf("/")));
                         content = content.Substring(content.IndexOf("/") + 1);
                         int win = Convert.ToInt32(content.Substring(0));
-                        //this.multiplayerView.BlockBoardMultiplayer(-1);
                         this.Invoke((MethodInvoker)delegate {
+                            this.multiplayerView.BlockAfterChess(true);
                             this.multiplayerView.ChessTick(x,y,win);
                         });
                         break;
                     }
-                case "winner":
+                case "winner": // người nhận được thông điệp này là người thắng
                     {
+                        // cộng điểm trên màn hình
+                        this.Invoke((MethodInvoker)delegate {
+                            this.multiplayerView.UpdatePlus(true);
+                        });
                         string msg1 = content;
                         string userCh = content.Substring(0, content.IndexOf("/"));
                         string userBeCh = content.Substring(content.IndexOf("/")+1);
@@ -231,8 +252,12 @@ namespace CARO_X
                         }
                         break;
                     }
-                case "drawwin":
+                case "drawwin": // người nhận được thông điệp này là người thua
                     {
+                        // cộng điểm trên màn hình -> Cộng số trận đã đấu
+                        this.Invoke((MethodInvoker)delegate {
+                            this.multiplayerView.UpdatePlus(false);
+                        });
                         string msg1 = content;
                         content = content.Substring(content.IndexOf("/") + 1);
                         content = content.Substring(content.IndexOf("/") + 1);
@@ -259,11 +284,105 @@ namespace CARO_X
                         int[] tempX = X.ToArray();
                         int[] tempY = Y.ToArray();
                         this.multiplayerView.DrawRowWin(tempX,tempY);
+                        
+                        break;
+                    }
+                case "again":
+                    {
+                        string msg1 = content;
+                        DialogResult dialogResult = MessageBox.Show("Do you want to play again with " + this.multiplayerView.playerBeCh, "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            msg1 = "canagain/true/"+ this.multiplayerView.playerName+"/"+this.multiplayerView.playerBeCh;
+                            // Reset các thứ
+                            this.multiplayerView.ResetGame();
+                            // Set turn
+                            this.multiplayerView.SetTurn(true);
+                            // Khóa các nút lại --> Mời bạn
+                            this.multiplayerView.BlockButton(false);
+                            // Lượt đánh
+                            this.multiplayerView.firstTurn = 1-this.multiplayerView.firstTurn; 
+                            // Set để đánh trước
+                            if (this.multiplayerView.firstTurn == 0)
+                            {
+                                this.multiplayerView.BlockAllChess(true);
+                            }
+                            else
+                            {
+                                this.multiplayerView.BlockAllChess(false);
+                            }
+                            
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            msg1 = "canagain/false/" + content;
+                        }
+                        byte[] data = StaticController.Encoding(msg1);
+                        try
+                        {
+                            this.loginSocket.Send(data);
+                        }catch(Exception ex)
+                        {
+                            Console.WriteLine("Error -ProccessRespond- "+ex.Message);
+                        }
+                        break;
+                    }
+                case "canagain":
+                    {
+                        string temp = content;
+                        string msg1 = "";
+                        string check = content.Substring(0,content.IndexOf("/"));
+                        if (check == "true")
+                        {
+                            MessageBox.Show(this.multiplayerView.playerBeCh + " said: OK. Both can play together again right now! Have fun!");
+                            // Set turn
+                            this.multiplayerView.SetTurn(true);
+                            // Khóa các nút lại --> Mời bạn
+                            this.multiplayerView.BlockButton(false);
+                            // Lượt đánh
+                            this.multiplayerView.firstTurn = 1-this.multiplayerView.firstTurn; 
+                            // Set để đánh trước
+                            if (this.multiplayerView.firstTurn == 0)
+                            {
+                                this.multiplayerView.BlockAllChess(true);
+                            }
+                            else
+                            {
+                                this.multiplayerView.BlockAllChess(false);
+                            }
+                            
+                        }
+                        else
+                        {
+                            MessageBox.Show(this.multiplayerView.playerBeCh + " said: NO, you can choose another user to play with");
+                            this.multiplayerView.ResetGame();
+                            this.multiplayerView.BlockAllChess(false);
+                            this.multiplayerView.BlockButton(true);
+                        }
+                        break;
+                    }
+                case "leave":
+                    {
+                        if (this.multiplayerView.playing)
+                        {
+                            MessageBox.Show("Your friend is leaved. 'See you next time' " + this.multiplayerView.playerBeCh + " said.");
+                        }
+                        // nghĩ chơi 
+                        this.multiplayerView.playing = false;
+                        this.multiplayerView.ResetGame();
+                        this.multiplayerView.BlockAllChess(false);
+                        this.multiplayerView.BlockButton(true);
                         break;
                     }
             }
         }
 
+        public void RegisterDone(string username, string password)
+        {
+            txtUsername.Text = username;
+            txtPassword.Text = password;
+        }
+        
         // DRAG FORM
         [DllImport("user32")]
         private static extern bool ReleaseCapture();
@@ -302,6 +421,7 @@ namespace CARO_X
         private void btnRegister_Click(object sender, EventArgs e)
         {
             RegisterView re = new RegisterView();
+            re.registerSocket = this.loginSocket;
             re.Show();
             re.login = this;
             this.Hide();

@@ -31,33 +31,19 @@ namespace CARO_X
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuView));
-            this.btnTwo = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnMulti = new System.Windows.Forms.Label();
-            this.btnSetting = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.proBar = new System.Windows.Forms.ProgressBar();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.pnTitle = new System.Windows.Forms.Panel();
+            this.btnAbout = new System.Windows.Forms.Button();
+            this.btnSetting = new System.Windows.Forms.Button();
+            this.btnOnline = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnTitle.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnTwo
-            // 
-            this.btnTwo.AutoSize = true;
-            this.btnTwo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTwo.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTwo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
-            this.btnTwo.Location = new System.Drawing.Point(397, 170);
-            this.btnTwo.Name = "btnTwo";
-            this.btnTwo.Size = new System.Drawing.Size(165, 37);
-            this.btnTwo.TabIndex = 9;
-            this.btnTwo.Text = "Two Players";
-            this.btnTwo.Click += new System.EventHandler(this.btnTwo_Click);
-            this.btnTwo.MouseEnter += new System.EventHandler(this.btnTwo_MouseEnter);
-            this.btnTwo.MouseLeave += new System.EventHandler(this.btnTwo_MouseLeave);
             // 
             // label5
             // 
@@ -69,35 +55,6 @@ namespace CARO_X
             this.label5.Size = new System.Drawing.Size(253, 73);
             this.label5.TabIndex = 8;
             this.label5.Text = "CARO - X";
-            // 
-            // btnMulti
-            // 
-            this.btnMulti.AutoSize = true;
-            this.btnMulti.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMulti.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMulti.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
-            this.btnMulti.Location = new System.Drawing.Point(397, 245);
-            this.btnMulti.Name = "btnMulti";
-            this.btnMulti.Size = new System.Drawing.Size(173, 37);
-            this.btnMulti.TabIndex = 9;
-            this.btnMulti.Text = "Multiplayers";
-            this.btnMulti.Click += new System.EventHandler(this.btnMulti_Click);
-            this.btnMulti.MouseEnter += new System.EventHandler(this.btnMulti_MouseEnter);
-            this.btnMulti.MouseLeave += new System.EventHandler(this.btnMulti_MouseLeave);
-            // 
-            // btnSetting
-            // 
-            this.btnSetting.AutoSize = true;
-            this.btnSetting.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSetting.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(124)))), ((int)(((byte)(138)))));
-            this.btnSetting.Location = new System.Drawing.Point(397, 320);
-            this.btnSetting.Name = "btnSetting";
-            this.btnSetting.Size = new System.Drawing.Size(103, 37);
-            this.btnSetting.TabIndex = 9;
-            this.btnSetting.Text = "Setting";
-            this.btnSetting.MouseEnter += new System.EventHandler(this.btnSetting_MouseEnter);
-            this.btnSetting.MouseLeave += new System.EventHandler(this.btnSetting_MouseLeave);
             // 
             // btnClose
             // 
@@ -136,25 +93,80 @@ namespace CARO_X
             // 
             // pnTitle
             // 
+            this.pnTitle.Controls.Add(this.btnAbout);
+            this.pnTitle.Controls.Add(this.btnSetting);
+            this.pnTitle.Controls.Add(this.btnOnline);
+            this.pnTitle.Controls.Add(this.btnStart);
             this.pnTitle.Controls.Add(this.label5);
             this.pnTitle.Location = new System.Drawing.Point(0, 51);
             this.pnTitle.Name = "pnTitle";
             this.pnTitle.Size = new System.Drawing.Size(633, 429);
             this.pnTitle.TabIndex = 13;
-            this.pnTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnTitle_MouseMove);
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnAbout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAbout.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbout.Location = new System.Drawing.Point(399, 251);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(200, 39);
+            this.btnAbout.TabIndex = 9;
+            this.btnAbout.Text = "About";
+            this.btnAbout.UseVisualStyleBackColor = false;
+            // 
+            // btnSetting
+            // 
+            this.btnSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnSetting.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetting.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSetting.Location = new System.Drawing.Point(399, 313);
+            this.btnSetting.Name = "btnSetting";
+            this.btnSetting.Size = new System.Drawing.Size(200, 39);
+            this.btnSetting.TabIndex = 9;
+            this.btnSetting.Text = "Setting";
+            this.btnSetting.UseVisualStyleBackColor = false;
+            this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
+            // 
+            // btnOnline
+            // 
+            this.btnOnline.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnOnline.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOnline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOnline.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOnline.Location = new System.Drawing.Point(399, 190);
+            this.btnOnline.Name = "btnOnline";
+            this.btnOnline.Size = new System.Drawing.Size(200, 39);
+            this.btnOnline.TabIndex = 9;
+            this.btnOnline.Text = "Multiplayer";
+            this.btnOnline.UseVisualStyleBackColor = false;
+            this.btnOnline.Click += new System.EventHandler(this.btnOnline_Click);
+            // 
+            // btnStart
+            // 
+            this.btnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.btnStart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStart.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStart.Location = new System.Drawing.Point(399, 131);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(200, 39);
+            this.btnStart.TabIndex = 9;
+            this.btnStart.Text = "Start Game";
+            this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // MenuView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(17)))), ((int)(((byte)(24)))));
-            this.ClientSize = new System.Drawing.Size(634, 480);
+            this.ClientSize = new System.Drawing.Size(635, 480);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.proBar);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnSetting);
-            this.Controls.Add(this.btnMulti);
-            this.Controls.Add(this.btnTwo);
             this.Controls.Add(this.pnTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MenuView";
@@ -168,15 +180,15 @@ namespace CARO_X
         }
 
         #endregion
-
-        private System.Windows.Forms.Label btnTwo;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label btnMulti;
-        private System.Windows.Forms.Label btnSetting;
         private System.Windows.Forms.Label btnClose;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ProgressBar proBar;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Panel pnTitle;
+        private System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.Button btnOnline;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnAbout;
     }
 }

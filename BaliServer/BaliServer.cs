@@ -1,9 +1,11 @@
 ﻿using BaliServer.Controllers;
 using CARO_X.Controllers;
+using CARO_X.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,6 +14,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using Newtonsoft.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,14 +24,8 @@ namespace BaliServer
 {
     public partial class BaliServer : Form
     {
-        /// <summary>
-        /// Dùng để truy xuất CSDL
-        /// </summary>
         private UserController userController;
         
-        /// <summary>
-        /// Dùng để kết nối Socket
-        /// </summary>
         private Socket serverSocket;
         private Dictionary<string, Socket> clientList;
         private IPEndPoint ip;
@@ -38,7 +35,11 @@ namespace BaliServer
             CheckForIllegalCrossThreadCalls = false;
             clientList = new Dictionary<string, Socket>();
             userController = new UserController();
+            this.CenterToScreen();
         }
+
+        private PerformanceCounter CPU;
+        private PerformanceCounter RAM;
 
         //FUNCTION DEFINE
         public void Connect()
@@ -73,6 +74,15 @@ namespace BaliServer
                                 {
                                     Console.WriteLine("Error -Connect- "+ex.Message);
                                     // Khi client tắt
+                                    // Xóa ra khỏi ClientList
+                                    foreach (var item in clientList)
+                                    {
+                                        if (item.Value == client)
+                                        {
+                                            clientList.Remove(item.Key);
+                                            break;
+                                        }
+                                    }
                                     client.Close();
                                     break;
                                 }
@@ -92,16 +102,13 @@ namespace BaliServer
             listen.IsBackground = true;
             listen.Start();
         }
+
         public void CloseConnection()
         {
             serverSocket.Close();
             MessageBox.Show("Connection is Closed");
         }
 
-        /// <summary>
-        /// Hàm xử lý tất cả các loại Request
-        /// </summary>
-        /// <param name="msg"></param>
         public void ProcessRequest(string msg, Socket client)
         {
             string signal = msg.Substring(0,msg.IndexOf("/"));
@@ -114,52 +121,74 @@ namespace BaliServer
                         string username = content.Substring(0,content.IndexOf("/"));
                         string password = content.Substring(content.IndexOf("/")+1);
                         // Kiến trúc để lấy dữ liệu về mô phỏng Json
-                        //Dictionary<string, Object> data = new Dictionary<string, object>();
-                        //bool check = userController.Login(username,password,data);
-                        bool check = true;
+                        bool check = this.userController.Login(username,password);
                         string sendData = "login/";
                         byte[] sendCode = null;
                         if (check)
                         {
-                            sendCode = StaticController.Encoding(sendData + "true");
+                            string json = this.userController.SelectInfo(username);
+                            sendCode = StaticController.Encoding(sendData + "true/" + json);
                             clientList.Add(username, client);
                         }
                         else
                         {
-                            sendCode = StaticController.Encoding(sendData + "false");
+                            sendCode = StaticController.Encoding(sendData + "false/");
                         }
                         client.Send(sendCode);
+                        break;
+                    }
+                case "register":
+                    {
+                        // Đăng ký tài khoản
+                        string json = content;
+                        User userInfo = JsonConvert.DeserializeObject<User>(json);
+                        userInfo.Connect();
+                        bool check = userInfo.Insert();
+                        if (check)
+                        {
+                            Console.WriteLine("Register OK");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Register Not OK");
+                        }
                         break;
                     }
                 case "online": // Yêu cầu gửi danh sách người dùng đang online
                     {
                         string msg1 = "online/" + clientList.Count+"/";
+                        int n = 0;
                         foreach (var kvp in clientList)
                         {
                             string username = kvp.Key;
                             if (client != kvp.Value)
                             {
                                 msg1 += username + "/";
+                                n++;
                             }
                         }
-                        msg1 = msg1.Substring(0, msg1.LastIndexOf("/"));
-                        byte[] data = StaticController.Encoding(msg1);
-                        try
+                        if (n != 0)
                         {
+                            msg1 = msg1.Substring(0, msg1.LastIndexOf("/"));
+                            byte[] data = StaticController.Encoding(msg1);
                             try
                             {
-                                client.Send(data);
+                                try
+                                {
+                                    client.Send(data);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("Exception " + ex.ToString());
+                                }
                             }
-                            catch(Exception ex)
+                            catch
                             {
-                                Console.WriteLine("Exception "+ ex.ToString());
+                                Console.WriteLine("Can't send to all Client -BaliServer-");
                             }
+                            Console.WriteLine("Send List All User online Successful -BaliServer-");
                         }
-                        catch
-                        {
-                            Console.WriteLine("Can't send to all Client -BaliServer-");
-                        }
-                        Console.WriteLine("Send List All User online Successful -BaliServer-");
+                        Console.WriteLine("Not found any users -BaliServer-");
                         break;
                     }
                 case "play":
@@ -183,6 +212,7 @@ namespace BaliServer
                 case "canplay":
                     {
                         string msg1 = "canplay/" + content;
+                        string check = content.Substring(0,content.IndexOf("/")); // true or false
                         content = content.Substring(content.IndexOf("/") + 1);
                         string userCh = content.Substring(0, content.IndexOf("/"));
                         string userBeCh = content.Substring(content.IndexOf("/") + 1);
@@ -223,7 +253,15 @@ namespace BaliServer
                     {
                         string msg1 = content;
                         string userCh = content.Substring(0,content.IndexOf("/"));
-                        string userBeCh = content.Substring(content.IndexOf("/")+1);
+                        string userBeCh = content.Substring(content.IndexOf("/")+1); // thằng này thắng
+                        string winnerPlayer = userBeCh;
+                        // cộng điểm cho cả 2 người chơi
+                        // người thắng
+                        User userWin = new User();
+                        userWin.UpdatePlusWin(userBeCh);
+                        // người thua
+                        User userLose = new User();
+                        userLose.UpdatePlusLost(userCh);
                         Socket cli = clientList[userBeCh];
                         msg1 = "winner/" + content;
                         byte[] data = StaticController.Encoding(msg1);
@@ -256,10 +294,59 @@ namespace BaliServer
                         }
                         break;
                     }
+                case "again":
+                    {
+                        string temp = content;
+                        string msg1 = "";
+                        string userBeCh = content.Substring(content.IndexOf("/")+1);
+                        Socket cli = clientList[userBeCh];
+                        msg1 = "again/" + temp;
+                        try
+                        {
+                            byte[] data = StaticController.Encoding(msg1);
+                            cli.Send(data);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error -ProcessRequest- "+ex.Message);
+                        }
+                        break;
+                    }
+                case "canagain":
+                    {
+                        string temp = content;
+                        content = content.Substring(content.IndexOf("/")+1);
+                        string userBeCh = content.Substring(content.IndexOf("/") + 1);
+                        Socket cli = clientList[userBeCh];
+                        string msg1 = "canagain/" + temp;
+                        try
+                        {
+                            byte[] data = StaticController.Encoding(msg1);
+                            cli.Send(data);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error -ProcessRequest- " + ex.Message);
+                        }
+                        break;
+                    }
+                case "leave":
+                    {
+                        string msg1 = content;
+                        string userBeCh = content.Substring(content.IndexOf("/")+1);
+                        Socket cli = clientList[userBeCh];
+                        msg1 = "leave/" + content;
+                        try
+                        {
+                            cli.Send(StaticController.Encoding(msg1));
+                        }catch (Exception ex)
+                        {
+                            Console.WriteLine("Error -ProcessRequest- " + ex.Message);
+                        }
+                        break;
+                    }
             }
         }
-
-        
 
         // DRAG FORM
         [DllImport("user32")]
@@ -284,36 +371,28 @@ namespace BaliServer
             Application.Exit();
         }
 
-        private void btnConnect_MouseEnter(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
-            this.btnConnect.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnConnect_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnConnect.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnConnect_Click(object sender, EventArgs e)
-        {
+            MessageBox.Show("Server is running!");
+            CPU = new PerformanceCounter("Processor Information", "% Processor Time", "_Total");
+            RAM = new PerformanceCounter("Memory", "Available MBytes");;
+            timerPerformance.Start();
             this.Connect();
-        }
-
-        private void btnStop_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnStop.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnStop_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnStop.ForeColor = Color.FromArgb(54, 124, 138);
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
             this.CloseConnection();
+            timerPerformance.Stop();
         }
 
-        
+        private void timerPerformance_Tick(object sender, EventArgs e)
+        {
+            lbCPU.Text = "CPU: " + Convert.ToInt32(CPU.NextValue()) +" % ";
+            lbRAM.Text = "RAM: "+ Convert.ToInt32(RAM.NextValue()) + " MB";
+            progressBar1.PerformLayout();
+            progressBar2.PerformLayout();
+
+        }
     }
 }

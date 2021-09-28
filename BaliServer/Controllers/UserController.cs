@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace CARO_X.Controllers
@@ -11,37 +12,37 @@ namespace CARO_X.Controllers
     class UserController
     {
         private User user;
-        private Personal personal;
+        
 
         public UserController()
         {
             user = new User();
-            personal = new Personal();
+            
         }
 
-        /// <summary>
-        /// Xem xem có đăng nhập được hay không
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public bool Login(string username, string password, Dictionary<string, Object> data)
-        {
-            user.username = username;
-            user.password = password;
-            int check = user.Select(); //user_id here
-            personal.user_id = check;
-            //DbDataReader reader = personal.Select();
-            //if (reader.HasRows)
-            //{
-            //    reader.Read();
-            //    data.Add("username",username);
-            //    data.Add("name",reader.GetValue(1));
-            //    data.Add("gender", reader.GetValue(2));
-            //}
-            return check != -1;
-        } 
+        // FUNCTION
 
-        
+        public bool Login(string user, string pass)
+        {
+            bool check = this.user.Select(user, pass);
+            if (check)
+            {
+                // ....
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public string SelectInfo(string user)
+        {
+            bool check = this.user.Select(user);
+            string json = null;
+            json = JsonConvert.SerializeObject(this.user);
+            return json;
+        }
+
     }
 }

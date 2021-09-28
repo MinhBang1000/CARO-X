@@ -8,35 +8,32 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CARO_X.Models;
 
 namespace CARO_X
 {
     public partial class MultiplayerView : Form
     {
-        /// <summary>
-        /// Quản lý kết nối Socket
-        /// </summary>
         public Socket playerSocket;
         public LoginView login;
         public FriendView friendView;
         public string playerName;
         public string playerBeCh;
+        public int firstTurn;
+        public bool playing = false;
+        public UserResponse userInfo;
 
-        /// <summary>
-        /// Quản lý tác vụ đánh cờ
-        /// </summary>
         public MenuView menu;
         private Button[,] btn;
         // Lượt đánh và ô đã đánh
         private int[,] tick;
+        private bool[,] block;
         private bool turn;
         private bool result = false; // chưa có kết quả trận đấu
 
-        /// <summary>
-        /// Lớp xử lý trận đấu
-        /// </summary>
         public BattleController battle;
 
         public MultiplayerView()
@@ -48,11 +45,11 @@ namespace CARO_X
         }
 
         // FUNCTION MY DEFINE
-        // Khởi tạo bàn cở và đánh cờ
         public void InitComponents()
         {
             btn = new Button[Config.CHESS_X, Config.CHESS_Y];
             tick = new int[Config.CHESS_X, Config.CHESS_Y];
+            block = new bool[Config.CHESS_X, Config.CHESS_Y];
             // O đánh trước
             turn = true;
             this.battle = new BattleController();
@@ -95,6 +92,7 @@ namespace CARO_X
                     x += Config.CHESS_WIDTH;
                     btn[i, j] = chessBtn;
                     tick[i, j] = -1; // là chưa có đánh gì hết
+                    block[i, j] = true; // là cho đánh nhưng mở đầu sẽ bị hàm kia block lại
                 }
                 x = 0;
                 y += Config.CHESS_HEIGHT;
@@ -140,45 +138,100 @@ namespace CARO_X
             this.lbPlayer.Text = this.playerName;
         }
 
-        /// <summary>
-        /// Khóa bàn cờ theo ý muốn -3 khóa lại, -1 mở ra trừ các ô đã đánh
-        /// </summary>
-        /// <param name="x"></param>
-        public void BlockBoardMultiplayer(int x)
+        public void SetCenterForm()
         {
-            int n = Config.CHESS_X;
-            int m = Config.CHESS_Y;
-            int i, j;
-            for (i = 0; i < n; i++)
+            this.CenterToScreen();
+        }
+
+        public void BlockAfterChess(bool check)
+        {
+            int x = Config.CHESS_X;
+            int y = Config.CHESS_Y;
+            for (int i = 0; i < x; i++)
             {
-                for (j = 0; j < m; j++)
+                for (int j = 0; j < y; j++)
                 {
-                    if (tick[i,j] != 0 || tick[i, j] != 1) // Là tìm ô chưa đánh
+                    if (tick[i, j] == -1)
                     {
-                        tick[i, j] = x; // Khóa lại khi hết lượt
+                        block[i, j] = check;
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// Để set turn khi đánh online
-        /// </summary>
-        /// <param name="turn"></param>
+        public void ResetGame()
+        {
+            int n = Config.CHESS_X;
+            int m = Config.CHESS_Y;
+            int i, j;
+            int x = 0;
+            int y = 0;
+            Button standardButton = new Button();
+            this.turn = true;
+            for (i = 0; i < n; i++)
+            {
+                for (j = 0; j < m; j++)
+                {
+                    btn[i, j].BackgroundImage = standardButton.BackgroundImage;
+                    btn[i, j].BackColor = Color.FromArgb(8, 17, 24);
+                    tick[i, j] = -1;
+                }
+            }
+            result = false;
+            battle.ResetRowWin();
+        }
+        
+        public void BlockAllChess(bool check)
+        {
+            int x = Config.CHESS_X;
+            int y = Config.CHESS_Y;
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    
+                        block[i, j] = check;
+                    
+                }
+            }
+        }
+        
+        public void Check()
+        {
+            int x = Config.CHESS_X;
+            int y = Config.CHESS_Y;
+            string str1 = "";
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    str1 += tick[i, j] + " ";
+                }
+                str1 += "\n";
+            }
+            str1 += "\n";
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    str1 += block[i, j] + " ";
+                }
+                str1 += "\n";
+            }
+            MessageBox.Show(str1);
+        }
+
         public void SetTurn(bool turn)
         {
             this.turn = turn;
         }
-        /// <summary>
-        /// Khóa và mở các nút khi chơi
-        /// </summary>
-        /// <param name="tmp"></param>
+
         public void BlockButton(bool tmp)
         {
-            this.btnChallenge.Enabled = tmp;
+            Button btn = btnChallenge;
+            btn.Enabled = tmp;
         }
 
-        // Sự kiện nhất quán trên với 1
         public void ChessClick(Object Sender, EventArgs e)
         {
             // Bắt lấy cái nút nhấn
@@ -190,9 +243,11 @@ namespace CARO_X
             index = str1.IndexOf("_");
             int x = Convert.ToInt32(str1.Substring(0, index));
             int y = Convert.ToInt32(str1.Substring(index + 1));
-            if (tick[x, y] == -1)
+            if (tick[x, y] == -1 && block[x,y]==true)
             {
-                //this.BlockBoardMultiplayer(-3);
+                // Ô nào đánh rồi thì không cho đánh nữa
+                this.block[x, y] = false;
+                this.BlockAfterChess(false);
                 // Là O
                 this.tick[x, y] = 0;
                 if (this.turn == false)
@@ -205,11 +260,11 @@ namespace CARO_X
                 btn.BackgroundImageLayout = ImageLayout.Stretch;
                 if (this.turn == true)
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\O.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_O);
                 }
                 else
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\X.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                 }
 
                 // Xử lý thắng thua ở đây
@@ -267,40 +322,70 @@ namespace CARO_X
             }
 
         }
-        // Sự kiện Hover các Chess Button
+        
         public void ChessEnter(Object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
             btn.FlatAppearance.BorderColor = Color.FromArgb(8, 200, 204);
         }
+        
         public void ChessLeave(Object Sender, EventArgs e)
         {
             Button btn = Sender as Button;
             btn.FlatAppearance.BorderColor = Color.FromArgb(54, 124, 138);
         }
 
+        public void SetupInfoPlayer(string json)
+        {
+            userInfo = JsonConvert.DeserializeObject<UserResponse>(json);
+            this.lbTotalScore.Text = "Score:" + userInfo.total_score;
+            this.lbTotalWin.Text = "Win:" + userInfo.total_win;
+            this.picAvatar.Image = Image.FromFile(userInfo.avatar);
+        }
+
+        public void UpdatePlus(bool win)
+        {
+            if (win)
+            {
+                userInfo.total_score++;
+                userInfo.total_win++;
+                this.lbTotalScore.Text = "Score: " + userInfo.total_score;
+                this.lbTotalWin.Text = "Win: " + userInfo.total_win;
+            }
+            userInfo.total_battle++;
+        }
+        
         // SERVER ACTION
-        /// <summary>
-        /// Hàm đánh cờ lên bàn cờ từ phía Server truyền qua
-        /// </summary>
-        /// win = {0,1,2} => 0 la O thắng , 1 là X thắng, 2 là hòa cờ
         public void AddItemOnline(string item)
         {
             this.lstOnl.Items.Add(item);
         }
-        /// <summary>
-        /// Đánh cờ lên bàn cờ từ Server gửi về
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="win"></param>
+
+        public void CheckTickArray()
+        {
+            int x = Config.CHESS_X;
+            int y = Config.CHESS_Y;
+            string str = "";
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    str += " " + tick[i, j];
+                }
+                str += "\n";
+            }
+            MessageBox.Show(str);
+        }
+        
         public void ChessTick(int x, int y, int winner)
         {
             Button btn = this.btn[x,y];
+            this.block[x, y] = false;
             if (winner == 2)
             {
                 if (tick[x, y] == -1)
                 {
+                    
                     // Là O
                     this.tick[x, y] = 0;
                     if (this.turn == false)
@@ -313,11 +398,11 @@ namespace CARO_X
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
                     if (this.turn == true)
                     {
-                        btn.BackgroundImage = Image.FromFile("ICON\\O.png");
+                        btn.BackgroundImage = Image.FromFile(Config.PATH_O);
                     }
                     else
                     {
-                        btn.BackgroundImage = Image.FromFile("ICON\\X.png");
+                        btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                     }
                     // Đổi lượt
                     this.turn = !this.turn;
@@ -338,11 +423,11 @@ namespace CARO_X
                 btn.BackgroundImageLayout = ImageLayout.Stretch;
                 if (this.turn == true)
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\O.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_O);
                 }
                 else
                 {
-                    btn.BackgroundImage = Image.FromFile("ICON\\X.png");
+                    btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                 }
                 // Đổi lượt
                 this.turn = !this.turn;
@@ -356,19 +441,6 @@ namespace CARO_X
                     Console.WriteLine("Error -ChessTick- "+ex.ToString());
                 }
                 MessageBox.Show("Winner is "+this.playerBeCh);
-            }
-        }
-
-        public void SendChess(string msg)
-        {
-            byte[] data = StaticController.Encoding(msg);
-            try
-            {
-                playerSocket.Send(data);
-            }
-            catch
-            {
-                MessageBox.Show("Can't send your tick -MultiplayerView-");
             }
         }
 
@@ -389,40 +461,34 @@ namespace CARO_X
             }
         }
 
-        private void btnNewGame_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnNewGame.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnNewGame_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnNewGame.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnMenu_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnMenu.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnMenu_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnMenu.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        private void btnSetting_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnSetting.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnSetting_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnSetting.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.login.CloseConnection();
-            Application.Exit();
+            // Xem như Logout
+            DialogResult dialogResult = MessageBox.Show("Do you want to exit this session ?", "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.BlockAllChess(false);
+                this.ResetGame();
+                this.BlockButton(true);
+                string msg = "leave/" + this.playerName + "/" + this.playerBeCh;
+                byte[] data = StaticController.Encoding(msg);
+                try
+                {
+                    this.playerSocket.Send(data);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error -btnLeaveRoom_Click- " + ex.Message);
+                }
+                this.Close();
+                this.login.menu.Show();
+                this.login.CloseConnection();
+                this.login.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                // Do nothing
+            }
         }
 
         private void btnReload_Click(object sender, EventArgs e)
@@ -440,21 +506,6 @@ namespace CARO_X
             }
         }
 
-        private void btnOut_MouseEnter(object sender, EventArgs e)
-        {
-            this.btnOut.ForeColor = Color.FromArgb(8, 200, 204);
-        }
-
-        private void btnOut_MouseLeave(object sender, EventArgs e)
-        {
-            this.btnOut.ForeColor = Color.FromArgb(54, 124, 138);
-        }
-
-        /// <summary>
-        /// Thách đấu với đối thủ nào đó
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnChallenge_Click(object sender, EventArgs e)
         {
             string friend = this.lstOnl.SelectedItem.ToString();
@@ -468,6 +519,85 @@ namespace CARO_X
             {
                 Console.WriteLine("Error -btnChallenge- "+ex.ToString());
             }
+        }
+
+        private void btnNewGame_Click(object sender, EventArgs e)
+        {
+            this.ResetGame();
+            string msg = "again/"+this.playerName+"/"+this.playerBeCh;
+            try
+            {
+                byte[] data = StaticController.Encoding(msg);
+                this.playerSocket.Send(data);
+            }catch(Exception ex)
+            {
+                Console.WriteLine("Error -btnNewGame_Click- "+ex.Message);
+            }
+        }
+
+        private void btnLeaveRoom_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Do you want to quit this battle ?", "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.playing = false;
+                this.BlockAllChess(false);
+                this.ResetGame();
+                this.BlockButton(true);
+                string msg = "leave/" + this.playerName + "/" + this.playerBeCh;
+                byte[] data = StaticController.Encoding(msg);
+                try
+                {
+                    this.playerSocket.Send(data);
+                }catch (Exception ex)
+                {
+                    Console.WriteLine("Error -btnLeaveRoom_Click- "+ex.Message);
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //....
+            }
+        }
+
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            // Xem như Logout
+            DialogResult dialogResult = MessageBox.Show("Do you want to exit this session ?", "CARO-X MESSAGE", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.BlockAllChess(false);
+                this.ResetGame();
+                this.BlockButton(true);
+                string msg = "leave/" + this.playerName + "/" + this.playerBeCh;
+                byte[] data = StaticController.Encoding(msg);
+                try
+                {
+                    this.playerSocket.Send(data);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error -btnLeaveRoom_Click- " + ex.Message);
+                }
+                this.Close();
+                this.login.menu.Show();
+                this.login.CloseConnection();
+                this.login.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                // Do nothing
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProfileView pro = new ProfileView();
+            pro.multi = this;
+            pro.username = this.playerName;
+            pro.userInfo = this.userInfo;
+            pro.Show();
         }
     }
 }

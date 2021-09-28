@@ -39,6 +39,7 @@ namespace CARO_X
             this.btnMenu = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,11 +91,11 @@ namespace CARO_X
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
-            this.label5.Location = new System.Drawing.Point(213, 56);
+            this.label5.Location = new System.Drawing.Point(244, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(253, 73);
+            this.label5.Size = new System.Drawing.Size(191, 73);
             this.label5.TabIndex = 5;
-            this.label5.Text = "CARO - X";
+            this.label5.Text = "LOGIN";
             // 
             // btnClose
             // 
@@ -142,6 +143,7 @@ namespace CARO_X
             // panel2
             // 
             this.panel2.Controls.Add(this.btnLogin);
+            this.panel2.Controls.Add(this.label5);
             this.panel2.Location = new System.Drawing.Point(-2, 56);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(716, 507);
@@ -161,16 +163,27 @@ namespace CARO_X
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(200)))), ((int)(((byte)(204)))));
+            this.label4.Location = new System.Drawing.Point(3, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(128, 37);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "CARO - X";
+            // 
             // LoginView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(17)))), ((int)(((byte)(24)))));
             this.ClientSize = new System.Drawing.Size(718, 565);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnMenu);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.label2);
@@ -180,6 +193,7 @@ namespace CARO_X
             this.Name = "LoginView";
             this.Text = "CARO - X";
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,6 +211,7 @@ namespace CARO_X
         private System.Windows.Forms.Label btnMenu;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Label label4;
     }
 }
 
