@@ -148,5 +148,28 @@ namespace CARO_X.Models
             int count = cmd.ExecuteNonQuery();
             return count != 0;
         } // Cộng điểm cho người thua
+    
+        public bool UpdateAvatar(string username)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connect;
+            cmd.CommandText = "UPDATE Users SET avatar = @AVATAR WHERE username = @USERNAME";
+            cmd.Parameters.Add("@AVATAR", System.Data.SqlDbType.VarChar).Value = this.avatar;
+            cmd.Parameters.Add("@USERNAME", System.Data.SqlDbType.VarChar).Value = username;
+            int count = cmd.ExecuteNonQuery();
+            return count != 0;
+        }
+    
+        public bool UpdateInfo(string username)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connect;
+            cmd.CommandText = "UPDATE Users SET fullname = @FULLNAME, gender = @GENDER WHERE username = @USERNAME";
+            cmd.Parameters.Add("@FULLNAME", System.Data.SqlDbType.NVarChar).Value = this.fullname;
+            cmd.Parameters.Add("@GENDER", System.Data.SqlDbType.Int).Value = this.gender;
+            cmd.Parameters.Add("@USERNAME", System.Data.SqlDbType.VarChar).Value = username;
+            int count = cmd.ExecuteNonQuery();
+            return count != 0;
+        }
     }
 }

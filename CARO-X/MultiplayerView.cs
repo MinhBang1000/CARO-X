@@ -355,6 +355,11 @@ namespace CARO_X
             userInfo.total_battle++;
         }
         
+        public void ReloadProfile(string avatar)
+        {
+            picAvatar.Image = Image.FromFile(avatar);
+        }
+
         // SERVER ACTION
         public void AddItemOnline(string item)
         {
@@ -597,7 +602,17 @@ namespace CARO_X
             pro.multi = this;
             pro.username = this.playerName;
             pro.userInfo = this.userInfo;
+            pro.profileSocket = this.playerSocket;
+            pro.FillData();
             pro.Show();
+        }
+
+        private void btnSetting_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SettingView setting = new SettingView();
+            setting.backForm = this;
+            setting.Show();
         }
     }
 }

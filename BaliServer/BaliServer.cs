@@ -345,6 +345,31 @@ namespace BaliServer
                         }
                         break;
                     }
+                case "avatar":
+                    {
+                        string msg1 = content;
+                        string username = content.Substring(0,content.IndexOf("/"));
+                        string avatar = content.Substring(content.IndexOf("/") + 1);
+                        User userInfo = new User();
+                        userInfo.avatar = avatar;
+                        userInfo.UpdateAvatar(username);
+                        // Có thể bắt ngoại lệ chỗ này
+                        break;
+                    }
+                case "info":
+                    {
+                        string msg1 = content;
+                        string username = content.Substring(0, content.IndexOf("/"));
+                        content = content.Substring(content.IndexOf("/")+1);
+                        string fullname = content.Substring(0, content.IndexOf("/"));
+                        int gender = Convert.ToInt32(content.Substring(content.IndexOf("/") + 1));
+                        User userInfo = new User();
+                        userInfo.fullname = fullname;
+                        userInfo.gender = gender;
+                        userInfo.UpdateInfo(username);
+                        // Có thể bắt ngoại lệ chỗ này
+                        break;
+                    }
             }
         }
 
