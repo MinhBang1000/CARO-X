@@ -606,5 +606,13 @@ namespace CARO_X
             pro.FillData();
             pro.Show();
         }
+
+        private void btnSetting_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SettingView setting = new SettingView();
+            setting.backForm = this;
+            setting.Show();
+        }
     }
 }
