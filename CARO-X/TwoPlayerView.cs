@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,7 +22,9 @@ namespace CARO_X
         private bool playerOneTiming = true;
         private bool playerTwoTiming = true;
         private bool turn;
-        private bool result = false; 
+        private bool result = false;
+        private int backX;
+        private int backY;
         // chưa có kết quả trận đấu
 
         // Lớp xử lý trận đấu
@@ -46,6 +49,8 @@ namespace CARO_X
             this.battle = new BattleController();
             this.lbScoreO.Text = 0.ToString();
             this.lbScoreX.Text = 0.ToString();
+            this.backX = -1;
+            this.backY = -1;
         }
 
         public void InitChessBoard()
@@ -155,6 +160,120 @@ namespace CARO_X
             }
         }
 
+        public void DrawChessAlready(int x, int y)
+        {
+            this.backX = x;
+            this.backY = y;
+            btn[x, y].BackColor = Color.FromArgb(8,200,204);
+        }
+
+        public void BackColorButton()
+        {
+            if (this.backX != -1) // bỏ qua lần đầu nhấn
+            {
+                btn[this.backX, this.backY].BackColor = Color.FromArgb(8,17,24);
+            }
+        }
+        
+        public void Draw(int x, int y, bool turn)
+        {
+            btn[x,y].BackgroundImageLayout = ImageLayout.Stretch;
+            if (turn == true)
+            {
+                btn[x, y].BackColor = Color.FromArgb(8,200,204);//Chào em <3,..... iu em nhất 
+            }
+            else
+            {
+                btn[x, y].BackColor = Color.FromArgb(228,20,0); 
+            }
+            tick[x, y] = 0; // Tick xanh rồi
+
+        }
+
+        public void TestCase()
+        {
+            int i = 0;
+            int first = 6;
+            int end = 13;
+            int sleep = 10;
+            Thread th = new Thread(() => {
+                while (i < Config.CHESS_X)
+                {
+                    if (i == 4)
+                    {
+                        for (int j = 0; j < Config.CHESS_Y; j++)
+                        {
+                            if (j != 6 && j != 7 && j != 8 && j != 11 && j != 12 && j != 13)
+                            {
+                                Draw(i, j, true);
+                                Thread.Sleep(sleep);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (i == 5)
+                        {
+                            for (int j = 0; j < Config.CHESS_Y; j++)
+                            {
+                                if (j < 5 || j > 14)
+                                {
+                                    Draw(i, j, true);
+                                    Thread.Sleep(sleep);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (i == 6 || i == 7)
+                            {
+                                for (int j = 0; j < Config.CHESS_Y; j++)
+                                {
+                                    if (j < 5 || j > 14)
+                                    {
+                                        Draw(i, j, true);
+                                        Thread.Sleep(sleep);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (i >= 8 && i <= 14)
+                                {
+                                    for (int j = 0; j < Config.CHESS_Y; j++)
+                                    {
+                                        if (j >= first && j <= end)
+                                        {
+                                            //...
+                                        }
+                                        else
+                                        {
+                                            Draw(i, j, true);
+                                            Thread.Sleep(sleep);
+                                        }
+                                    }
+                                    first++;
+                                    end--;
+                                }
+                                else
+                                {
+                                    for (int j = 0; j < Config.CHESS_Y; j++)
+                                    {
+                                        this.Draw(i, j, true);
+                                        Thread.Sleep(sleep);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    i++;
+                }
+            });
+            th.IsBackground = true;
+            th.Start();
+            
+        }
+        
         // Sự kiện nhất quán trên với 1
         public void ChessClick(Object Sender, EventArgs e)
         {
@@ -187,7 +306,9 @@ namespace CARO_X
                 {
                     btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                 }
-
+                // Tô màu và gỡ màu của nút vừa mới đánh
+                this.BackColorButton();
+                this.DrawChessAlready(x, y);
                 // Xử lý thắng thua ở đây
                 int win = -1;
                 if (battle.CheckPeace(tick))
@@ -407,5 +528,30 @@ namespace CARO_X
             setting.backForm = this;
             setting.Show();
         }
+
+        public bool testcase = false;
+        //if (testcase == false)
+        //{
+        //    this.TestCase();
+        //    testcase = true;
+        //}
+        //else
+        //{
+        //    Thread th = new Thread(()=> {
+        //        for (int i = 3; i < 12; i++)
+        //        {
+        //            for (int j = 5; j < 15; j++)
+        //            {
+        //                if (tick[i, j] == -1)
+        //                {
+        //                    Draw(i, j, false);
+        //                    Thread.Sleep(20);
+        //                }
+        //            }
+        //        }
+        //    });
+        //    th.IsBackground = true;
+        //    th.Start();
+        //}
     }
 }

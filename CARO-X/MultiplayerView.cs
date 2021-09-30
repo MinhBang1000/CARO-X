@@ -25,6 +25,8 @@ namespace CARO_X
         public int firstTurn;
         public bool playing = false;
         public UserResponse userInfo;
+        public int backUpX;
+        public int backUpY;
 
         public MenuView menu;
         private Button[,] btn;
@@ -266,7 +268,8 @@ namespace CARO_X
                 {
                     btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                 }
-
+                // Bỏ tô màu nút vừa đánh bởi đối thủ khi nãy
+                this.BackColorButton();
                 // Xử lý thắng thua ở đây
                 int win = -1;
                 if (battle.CheckPeace(tick))
@@ -381,6 +384,18 @@ namespace CARO_X
             }
             MessageBox.Show(str);
         }
+
+        public void BackColorButton()
+        {
+            btn[this.backUpX,this.backUpY].BackColor = Color.FromArgb(8,17,24);
+        }
+
+        public void DrawColorButtonAlready(int x, int y)
+        {
+            this.backUpX = x;
+            this.backUpY = y;
+            btn[x,y].BackColor = Color.FromArgb(8,200,204);
+        }
         
         public void ChessTick(int x, int y, int winner)
         {
@@ -409,6 +424,8 @@ namespace CARO_X
                     {
                         btn.BackgroundImage = Image.FromFile(Config.PATH_X);
                     }
+                    // Tô màu nút vừa mới đánh
+                    this.DrawColorButtonAlready(x, y);
                     // Đổi lượt
                     this.turn = !this.turn;
                 }

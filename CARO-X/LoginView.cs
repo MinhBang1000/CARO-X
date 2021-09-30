@@ -37,7 +37,7 @@ namespace CARO_X
         // DEFINE
         public void Connect()
         {
-            loginIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"),Config.PORT);
+            loginIP = new IPEndPoint(IPAddress.Parse("192.168.1.5"),Config.PORT);
             loginSocket = new Socket(AddressFamily.InterNetwork,SocketType.Stream,ProtocolType.Tcp);
             Thread connection = new Thread(()=> {
                 try
