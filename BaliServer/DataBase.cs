@@ -8,6 +8,9 @@ namespace CARO_X
 {
     class DataBase
     {
+        /// <summary>
+        /// Các thông số để kết nối CSDL
+        /// </summary>
         private string username = "sa";
         private string dbname = "CARO-X";
         private string password = "sa";

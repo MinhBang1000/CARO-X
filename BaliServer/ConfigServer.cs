@@ -8,6 +8,9 @@ namespace BaliServer
 {
     class ConfigServer
     {
+        /// <summary>
+        /// Cấu hình cổng
+        /// </summary>
         public static int PORT = 9999;
     }
 }
